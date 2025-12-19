@@ -98,12 +98,13 @@ const AboutUs = () => {
               <span className="text-[#0095ff] font-extrabold text-[11px] uppercase tracking-[0.25em] mb-3 block">
                 Nuestra Trayectoria
               </span>
-              <h2 className="text-3xl md:text-[44px] font-bold text-[#1a2b3c] font-serif mb-6 leading-[1.15]">
-                Brindando seguridad y <br className="hidden md:block" /> respaldo desde 1998
+              <h2 className="text-3xl md:text-[38px] font-bold text-[#1a2b3c] font-serif mb-6 leading-[1.15]">
+              Su socio de confianza en seguros
               </h2>
               <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl">
-                Somos una organización comprometida con la tranquilidad de nuestros clientes. 
-                Nuestra experiencia nos avala como líderes en el asesoramiento de seguros.
+              En Storti Faggiano, entendemos que un seguro es más que una simple póliza: es tranquilidad. Nuestro equipo de profesionales experimentados trabaja sin descanso para garantizar que usted cuente con la cobertura adecuada para cada situación.
+
+Nos enorgullecemos de nuestro enfoque personalizado, dedicamos tiempo a comprender sus necesidades únicas y le ofrecemos soluciones a medida que se adaptan a su estilo de vida y presupuesto.
               </p>
             </header>
 

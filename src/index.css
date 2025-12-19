@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  h2 {
+    font-family: "Yanone Kaffeesatz", sans-serif; /* O @apply font-yanone; */
+    font-size: 48px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 105%;
+    letter-spacing: 0.369px;
+    color: #1E1D24;
+  }
+}

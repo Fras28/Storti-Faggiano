@@ -7,6 +7,7 @@ import ClaimsSection from '../components/ClaimsSection';
 import NewsSection from '../components/NewsSection';
 import AboutUs from '../components/AboutUs';
 import PaymentMethods from '../components/PaymentMethods';
+import AboutUsVertical from '../components/AboutUsVertical';
 
 const Home = () => {
   return (
@@ -17,7 +18,8 @@ const Home = () => {
       {/* Sección Métodos de Pago */}
     <PaymentMethods/>
 
-     <AboutUs/>
+     {/* <AboutUs/> */}
+     <AboutUsVertical/>
     <ProductsSection/>
     <PaymentSection/>
     <Partners/>
