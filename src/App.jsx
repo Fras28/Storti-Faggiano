@@ -5,6 +5,7 @@ import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop'; // 1. Importar
+import Productores from './pages/Productores';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cotizar" element={<QuotePage />} />
         <Route path="/nosotros" element={<AboutUs />} />
+        <Route path="/productores" element={<Productores />}/>
       </Routes>
       <Footer />
     </>
