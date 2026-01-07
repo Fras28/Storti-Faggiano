@@ -14,8 +14,12 @@ const AboutUsVertical = () => {
     return (
         <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
-
-                {/* BLOQUE 1: INDICADORES (KPIs) EN FILA SUPERIOR */}
+            <h2 className='m-auto text-center pb-10'>Nosotros</h2>
+            <div className='m-auto pb-10 px-0 md:px-28 '>
+<p className='text-center'>Somos una organización líder en seguros dedicada a proteger lo que más le importa. Con décadas de experiencia y un compromiso con la excelencia, ofrecemos soluciones integrales de seguros. </p>
+              
+            </div>
+            
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
                     {stats.map((stat, index) => (
                         <motion.div

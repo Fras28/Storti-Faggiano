@@ -107,9 +107,9 @@ const AboutUs = () => {
 Nos enorgullecemos de nuestro enfoque personalizado, dedicamos tiempo a comprender sus necesidades únicas y le ofrecemos soluciones a medida que se adaptan a su estilo de vida y presupuesto.
               </p>
             </header>
-
             {/* GRILLA DE STATS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+
               {stats.map((stat, index) => (
                 <motion.div 
                   key={index}
