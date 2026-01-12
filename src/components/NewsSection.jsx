@@ -103,7 +103,7 @@ const NewsSection = () => {
         </div>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .swiper-pagination-bullet-active {
           background: #0095ff !important;
         }

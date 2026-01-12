@@ -114,7 +114,7 @@ const StaffCarousel = () => {
         </div>
   
         {/* Estilos CSS personalizados para bajar los puntos */}
-        <style jsx global>{`
+        <style>{`
           .staff-swiper .swiper-pagination {
             bottom: 0px !important; /* Mueve los puntos al fondo del padding creado con pb-24 */
           }
