@@ -58,7 +58,7 @@ const ServicesGrid = () => {
                 className={`cursor-pointer transition-all duration-500 ease-in-out rounded-2xl overflow-hidden shadow-xl border border-white/10 flex flex-col
                   ${isExpanded ? 'bg-white' : 'bg-[#6b7280]/90 backdrop-blur-md hover:-translate-y-2'}`}
               >
-                <div className={`p-8 min-h-[250px] flex flex-col justify-end transition-colors duration-500
+                <div className={`p-8 min-h-[250px] flex flex-col justify-center transition-colors duration-500
                   ${isExpanded ? 'bg-[#4b5563]' : ''}`}>
                   <span className="text-4xl font-serif text-white/90 mb-4 block">
                     {service.id}
