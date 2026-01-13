@@ -71,12 +71,11 @@ const handleSubmit = (e) => {
   const PUBLIC_KEY = "4IQsIjGTytu9Wzg6E";
   const SERVICE_ID = "service_4noir19";
   
-  // IDs de tus dos plantillas (Asegúrate que coincidan en tu panel de EmailJS)
+  // IDs de tus plantillas
   const TEMPLATE_AGENCIA = "template_w30obyg";
   const TEMPLATE_CLIENTE = "template_i6vbq1u";
 
-  // 2. PREPARACIÓN DE PARÁMETROS
-  // Estas variables deben llamarse igual dentro de tus templates de EmailJS: {{variable}}
+  // 2. PARÁMETROS PARA EMAILJS
   const templateParams = {
     compania: formData.compania,
     descripcion: formData.descripcion,
@@ -89,40 +88,35 @@ const handleSubmit = (e) => {
     fotos_count: formData.fotos.length
   };
 
-  // 3. EJECUCIÓN DEL ENVÍO DOBLE
+  // 3. ENVÍO DE CORREOS Y REDIRECCIÓN A WHATSAPP
   Promise.all([
-    // Envío a la Agencia (Dueño)
     emailjs.send(SERVICE_ID, TEMPLATE_AGENCIA, templateParams, PUBLIC_KEY),
-    // Envío de confirmación al Cliente
     emailjs.send(SERVICE_ID, TEMPLATE_CLIENTE, templateParams, PUBLIC_KEY)
   ])
     .then(() => {
-      // --- LÓGICA DE WHATSAPP PARA LAS FOTOS ---
-      // Reemplaza con el número de la agencia (formato internacional sin el +)
-      const nroWhatsAppAgencia = "+54915729501"; 
+      // Número de Siniestros SF (sin espacios ni símbolos)
+      const nroWhatsApp = "5492914029635"; 
       
       const textoWhatsApp = `Hola! Soy ${formData.nombreCliente}. Acabo de completar la denuncia web por el siniestro del vehículo ${formData.marcaModelo} (Patente: ${formData.patente}). Aquí les adjunto las fotos correspondientes.`;
       
-      const urlWhatsApp = `https://wa.me/${nroWhatsAppAgencia}?text=${encodeURIComponent(textoWhatsApp)}`;
+      const urlWhatsApp = `https://wa.me/${nroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
 
-      // Aviso al usuario
-      alert("¡Denuncia enviada con éxito! Ahora te redirigiremos a WhatsApp para que envíes las fotos de los daños.");
+      alert("¡Denuncia enviada! Ahora se abrirá WhatsApp para que nos envíes las fotos.");
       
-      // Abrir WhatsApp en una nueva pestaña
+      // Abre WhatsApp en nueva pestaña
       window.open(urlWhatsApp, '_blank');
 
-      // Volver al inicio de la web
+      // Navega al inicio
       navigate('/');
     })
     .catch((err) => {
-      alert("Hubo un error al enviar la denuncia. Por favor, intenta nuevamente.");
-      console.error("Error detallado de EmailJS:", err);
+      alert("Hubo un error al procesar el envío. Por favor, intenta de nuevo.");
+      console.error("Error EmailJS:", err);
     })
     .finally(() => {
       setIsSending(false);
     });
 };
-
   // --- Componente Barra de Progreso ---
   const ProgressBar = ({ currentStep }) => {
     const activeBlock = currentStep <= 1 ? 1 : currentStep <= 3 ? 2 : currentStep <= 5 ? 3 : 4;
