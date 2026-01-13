@@ -9,6 +9,9 @@ import Productores from './pages/Productores';
 import ProductoresIngreso from './pages/ProductoresIngreso';
 import DatosUtiles from './pages/DatosUtiles';
 import Contacto from './pages/Contacto';
+import Siniestros from './pages/Siniestros';
+import SiniestrosGuia from './pages/SiniestrosGuia';
+import DenunciaSiniestro from './pages/DenunciaSiniestro';
 
 function App() {
   return (
@@ -21,7 +24,10 @@ function App() {
         <Route path="/nosotros" element={<AboutUs />} />
         <Route path="/productores" element={<Productores />}/>
         <Route path="/productores/ingreso" element={<ProductoresIngreso />} /> {/* Nueva Ruta */}
-        <Route path="/datos-utiles" element={<DatosUtiles />} /> {/* Nueva Ruta */}
+        <Route path="/siniestros" element={<Siniestros />} />
+        <Route path="/siniestros/guia" element={<SiniestrosGuia />} />
+        <Route path="/siniestros/denuncia" element={<DenunciaSiniestro />} />
+        <Route path="/datos-utiles" element={<DatosUtiles />} />
         <Route path="/contacto" element={<Contacto />} /> 
       </Routes>
       <Footer />
