@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Users, Award, CheckSquare, CheckCircle2 } from 'lucide-react';
-import AboutImg from "../../assets/Hero/asesoramiento.png";
+import { ShieldCheck, Users, Award, CheckSquare } from 'lucide-react';
 
 const stats = [
     { icon: <ShieldCheck size={32} />, number: "25+", label: "Años de experiencia" },
@@ -14,11 +13,12 @@ const ChooseUs = () => {
     return (
         <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-6">
-            <h2 className='m-auto text-center pb-10'>Por qué nos eligen</h2>
-            <div className='m-auto pb-10 px-0 md:px-28 '>
-<p className='text-center'>Enfocamos nuestro trabajo en construir relaciones sólidas y duraderas. Acompañamos a nuestros asegurados con un contacto cercano y permanente, brindando respuestas ágiles a cada necesidad que surge en el camino, lo que nos permite soluciones a medida para cada cliente. </p>
-              
-            </div>
+                <h2 className='text-center pb-10'>Por qué nos eligen</h2>
+                <div className='max-w-4xl m-auto pb-16 px-0'>
+                    <p className='text-center text-gray-600'>
+                        Enfocamos nuestro trabajo en construir relaciones sólidas y duraderas. Acompañamos a nuestros asegurados con un contacto cercano y permanente, brindando respuestas ágiles a cada necesidad que surge en el camino, lo que nos permite soluciones a medida para cada cliente.
+                    </p>
+                </div>
             
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
                     {stats.map((stat, index) => (
@@ -31,13 +31,11 @@ const ChooseUs = () => {
                             <div className="flex justify-center text-gray-800 mb-4">
                                 {stat.icon}
                             </div>
-                            <h4 className="text-3xl font-bold text-gray-800">{stat.number}</h4>
-                            <p className="text-gray-500 text-xs uppercase tracking-widest mt-1">{stat.label}</p>
+                            <h4 className="text-gray-800">{stat.number}</h4>
+                            <p className="caption uppercase text-gray-500 mt-1">{stat.label}</p>
                         </motion.div>
                     ))}
                 </div>
-
-          
             </div>
         </section>
     );

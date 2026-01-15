@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Menu, X, Phone, MapPin } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 import Logo from "../assets/SFlogo.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Actualizamos los links para incluir todas las páginas solicitadas
   const navLinks = [
     { name: 'NOSOTROS', path: '/nosotros' },
     { name: 'PRODUCTORES', path: '/productores' },
@@ -24,102 +23,117 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-full bg-white font-sans sticky top-0 z-[100] shadow-sm">
+    <header className="w-full bg-white sticky top-0 z-[100] shadow-sm">
       {/* Top Bar: Visible en Desktop */}
       <div className="hidden lg:block border-b border-gray-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <Link to="/">
-            <img src={Logo} alt="SF Seguros" className="h-10" />
-          </Link>
-
-          <div className="flex gap-8 text-[12px]">
-            <div className="flex items-center gap-2">
-              <MapPin size={14} className="text-sf-teal" />
-              <span className="text-gray-600">Santa Fe 102, Bahía Blanca, CP B8000DND</span>
+          <div className="flex gap-6">
+            <div className="flex items-center gap-2 text-gray-500">
+              <MapPin size={14} className="text-[#72c0c9]" />
+              <span className="caption lowercase">Av. Colón 54, Bahía Blanca</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Phone size={14} className="text-sf-teal" />
-              <span className="text-gray-600">+54 291 4553332</span>
+            <div className="flex items-center gap-2 text-gray-500">
+              <Phone size={14} className="text-[#72c0c9]" />
+              <span className="caption">291 455-5555</span>
             </div>
-            <div className="text-gray-600">
-              <span className="font-bold text-sf-teal">Email:</span> info@sfasesores.com.ar
-            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
+              <Facebook size={16} />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
+              <Instagram size={16} />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
+              <Linkedin size={16} />
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar: Navbar Principal */}
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo para móvil y tablets */}
-        <Link to="/" className="lg:hidden">
-          <img src={Logo} alt="SF Seguros" className="h-8" />
-        </Link>
+      {/* Navbar Principal */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 h-20 flex justify-between items-center">
+        <NavLink to="/" className="flex-shrink-0">
+          <img src={Logo} alt="Storti Faggiano" className="h-10 md:h-12 w-auto" />
+        </NavLink>
 
-        {/* Botón Hamburguesa móvil */}
-        <button className="lg:hidden text-gray-700" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-
-        {/* Navegación Desktop - Ajustada para que quepan más elementos */}
-        <nav className="hidden lg:flex gap-5 xl:gap-8 text-[11px] xl:text-[13px] font-bold text-gray-700 tracking-wider">
+        {/* Desktop Links: Lato Regular 14px (Button 2) */}
+        <div className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <NavLink 
               key={link.name} 
               to={link.path} 
               className={({ isActive }) => 
-                `transition-colors duration-300 py-2 ${isActive ? 'text-sf-teal border-b-2 border-sf-teal' : 'hover:text-sf-teal'}`
+                `button-2 text-[13px] transition-all duration-300 ${
+                  isActive ? 'text-[#72c0c9] font-bold border-b-2 border-[#72c0c9]' : 'text-gray-600 hover:text-[#72c0c9]'
+                }`
               }
             >
               {link.name}
             </NavLink>
           ))}
-        </nav>
+        </div>
 
-        {/* Botones de Acción */}
-        <div className="hidden lg:flex gap-3">
+        {/* Desktop Actions: Lato Bold 14px (Button 1) */}
+        <div className="hidden lg:flex items-center gap-3">
           <button 
             onClick={handleIngreso}
-            className="bg-[#72c0c9] text-white px-5 py-2 rounded-xl font-bold text-xs uppercase hover:brightness-105 transition-all shadow-sm"
+            className="button-1 bg-[#374151] text-white px-6 py-2.5 rounded-xl hover:bg-gray-800 transition-all shadow-sm"
           >
-            Ingreso
+            INGRESO
           </button>
           <a 
-            href="https://wa.me/542914553332" 
+            href="https://wa.me/tu-numero" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-[#72c0c9] text-white px-5 py-2 rounded-xl font-bold text-xs uppercase hover:brightness-105 transition-all shadow-sm"
+            className="button-1 bg-[#72c0c9] text-white px-5 py-2.5 rounded-xl hover:brightness-105 transition-all shadow-sm"
           >
-            Whatsapp
+            WHATSAPP
           </a>
         </div>
+
+        {/* Botón Móvil */}
+        <button 
+          className="lg:hidden p-2 text-gray-800" 
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
 
-      {/* Menú Desplegable Móvil */}
+      {/* Menú Móvil */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-4 shadow-xl overflow-y-auto max-h-[80vh]">
-          {navLinks.map((link) => (
-            <NavLink 
-              key={link.name} 
-              to={link.path} 
-              className={({ isActive }) => 
-                `block text-lg font-semibold ${isActive ? 'text-sf-teal' : 'text-gray-800'}`
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </NavLink>
-          ))}
-          <hr className="border-gray-100" />
-          <div className="grid grid-cols-1 gap-3">
-            <button 
-              onClick={handleIngreso}
-              className="w-full bg-sf-teal text-white py-3 rounded-xl font-bold uppercase tracking-widest text-sm"
-            >
-              Ingreso
-            </button>
-            <button className="w-full border-2 border-sf-teal text-sf-teal py-3 rounded-xl font-bold uppercase tracking-widest text-sm">
-              Whatsapp
-            </button>
+        <div className="lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-2xl overflow-y-auto max-h-[90vh]">
+          <div className="p-6 space-y-6">
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <NavLink 
+                  key={link.name} 
+                  to={link.path} 
+                  className={({ isActive }) => 
+                    `button-2 text-lg py-2 ${isActive ? 'text-[#72c0c9] font-bold' : 'text-gray-800'}`
+                  }
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+            <hr className="border-gray-100" />
+            <div className="grid grid-cols-1 gap-4">
+              <button 
+                onClick={handleIngreso}
+                className="button-1 w-full bg-[#374151] text-white py-4 rounded-xl"
+              >
+                INGRESO
+              </button>
+              <a 
+                href="https://wa.me/tu-numero"
+                className="button-1 w-full bg-[#72c0c9] text-white py-4 rounded-xl text-center"
+              >
+                WHATSAPP
+              </a>
+            </div>
           </div>
         </div>
       )}

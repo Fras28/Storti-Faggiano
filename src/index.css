@@ -2,15 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@400;700&family=Yanone+Kaffeesatz:wght@200..700&display=swap');
 
 @layer base {
+  h1 {
+    @apply font-merriweather font-normal;
+    font-size: 64px;
+    letter-spacing: 1px;
+  }
+
   h2 {
-    font-family: "Yanone Kaffeesatz", sans-serif; /* O @apply font-yanone; */
+    @apply font-merriweather font-normal;
     font-size: 48px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 105%;
-    letter-spacing: 0.369px;
+    letter-spacing: 1px;
     color: #1E1D24;
+  }
+
+  h3 {
+    @apply font-lato;
+    font-size: 24px;
+    font-weight: 600; /* Semibold */
+    letter-spacing: -0.003em; /* -0.3% */
+  }
+
+  h4 {
+    @apply font-lato;
+    font-size: 16px;
+    font-weight: 600; /* Semibold */
+    letter-spacing: 0.0031em; /* 0.31% */
+  }
+
+  body, p {
+    @apply font-lato font-normal;
+    font-size: 16px;
+    letter-spacing: 0.01em; /* 1% */
+  }
+}
+
+@layer components {
+  /* Button 1: Bold 14px 0.5% */
+  .button-1 {
+    @apply font-lato font-bold uppercase;
+    font-size: 14px;
+    letter-spacing: 0.005em;
+  }
+
+  /* Button 2: Regular 14px 0.5% */
+  .button-2 {
+    @apply font-lato font-normal uppercase;
+    font-size: 14px;
+    letter-spacing: 0.005em;
+  }
+
+  /* Caption: Regular 14px 1% */
+  .caption {
+    @apply font-lato font-normal;
+    font-size: 14px;
+    letter-spacing: 0.01em;
   }
 }

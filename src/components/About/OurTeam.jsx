@@ -1,14 +1,13 @@
 import React from 'react';
-import EquipoTrabajo from "../../assets/nosotros/equipo-oficina.png"; // Referencia a Frame 73.png
+import EquipoTrabajo from "../../assets/nosotros/equipo-oficina.png";
 
 const OurTeam = () => {
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-12">
-        {/* Texto descriptivo */}
         <div className="md:w-1/2">
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">Nuestro equipo</h2>
-          <div className="space-y-4 text-gray-600 leading-relaxed text-lg">
+          <h2 className="text-gray-800 mb-6">Nuestro equipo</h2>
+          <div className="space-y-4 text-gray-600">
             <p>
               Priorizamos la capacitación constante de nuestros Productores 
               Asesores de Seguros.
@@ -26,11 +25,10 @@ const OurTeam = () => {
           </div>
         </div>
 
-        {/* Imagen con bordes redondeados invertidos o simétricos */}
         <div className="md:w-1/2">
           <img 
             src={EquipoTrabajo} 
-            alt="Equipo trabajando" 
+            alt="Nuestro equipo" 
             className="w-full h-auto rounded-[40px] shadow-sm"
           />
         </div>

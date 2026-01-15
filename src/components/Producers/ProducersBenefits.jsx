@@ -3,11 +3,11 @@ import React from 'react';
 const benefits = [
   {
     title: "Capacitación",
-    desc: "Promovemos la capacitación constante de los Productores Asesores de Seguros asociados a nuestra Organización procurando contar con profesionales que estén centrados en las necesidades del cliente, brindando siempre soluciones integrales, eficientes y a medida."
+    desc: "Promovemos la capacitación constante de los Productores Asesores de Seguros asociados a nuestra Organización procurando contar con profesionales centrados en las necesidades del cliente."
   },
   {
     title: "Oficinas",
-    desc: "Contamos con una oficina ubicada en Bahía Blanca en Santa Fe 102. Te ofrecemos amplios espacios de trabajo, sala de reuniones y box privados para que puedas trabajar con tranquilidad."
+    desc: "Contamos con una oficina ubicada en Bahía Blanca en Santa Fe 102. Te ofrecemos amplios espacios de trabajo, sala de reuniones y box privados para trabajar con tranquilidad."
   },
   {
     title: "Soporte",
@@ -21,28 +21,31 @@ const benefits = [
 
 const ProducersBenefits = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 relative">
-          {/* Líneas divisorias decorativas (Solo en Desktop) */}
-          <div className="hidden md:block absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-0 w-full h-[2px] bg-sf-teal/30 -translate-y-1/2" />
-            <div className="absolute top-0 left-1/2 w-[2px] h-full bg-sf-teal/30 -translate-x-1/2" />
+        {/* Contenedor relativo para posicionar la cruz */}
+        <div className="relative grid grid-cols-1 md:grid-cols-2">
+          
+          {/* LA CRUZ CENTRAL (Solo visible en Desktop) */}
+          <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
+            {/* Línea Horizontal */}
+            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-sf-teal/40" />
+            {/* Línea Vertical */}
+            <div className="absolute left-1/2 top-0 w-[1px] h-full bg-sf-teal/40" />
           </div>
 
           {benefits.map((item, index) => (
             <div 
               key={index} 
-              className={`p-10 md:p-16 flex flex-col justify-center border-sf-teal/20 
-                ${index % 2 === 0 ? 'md:border-r' : ''} 
-                ${index < 2 ? 'border-b md:border-b-0' : ''}
-                ${index >= 2 ? 'border-t md:border-t-0' : ''}
+              className={`relative z-10 p-12 md:p-20 flex flex-col justify-center transition-all duration-300
+                /* Bordes para mobile (línea simple abajo excepto el último) */
+                border-b border-gray-100 md:border-none last:border-none
               `}
             >
-              <h3 className="text-3xl md:text-4xl font-serif text-[#1a2e44] mb-6">
+              <h3 className="text-4xl font-yanone text-sf-dark mb-4 uppercase tracking-tight">
                 {item.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
+              <p className="text-sf-gray leading-relaxed text-base md:text-lg">
                 {item.desc}
               </p>
             </div>

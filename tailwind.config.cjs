@@ -8,11 +8,13 @@ module.exports = {
     extend: {
       fontFamily: {
         yanone: ['"Yanone Kaffeesatz"', 'sans-serif'],
+        merriweather: ['Merriweather', 'serif'],
+        lato: ['Lato', 'sans-serif'],
       },
       colors: {
-        'sf-dark': '#374151',    // El azul petróleo del footer y hero
-        'sf-teal': '#70b9c1',    // El color de los botones (Ingreso/WhatsApp)
-        'sf-gray': '#6b7280',    // Gris para textos secundarios y etiquetas
+        'sf-dark': '#374151',
+        'sf-teal': '#70b9c1',
+        'sf-gray': '#6b7280',
       },
     },
   },

@@ -1,22 +1,22 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 const JoinTeamCTA = () => {
   return (
     <section className="py-24 bg-gray-50 text-center">
       <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-serif text-[#1a2e44] mb-10">
+        <h2 className="text-5xl md:text-7xl font-yanone text-sf-dark mb-10 uppercase tracking-tight">
           Sumate a nuestro equipo
         </h2>
        
-          <NavLink
-            to="/productores/ingreso"
-            className="bg-sf-teal hover:bg-sf-teal/90 text-white px-10 py-4 rounded-xl font-bold text-sm tracking-widest uppercase transition-all shadow-lg active:scale-95 inline-flex items-center gap-3 mx-auto"
-          >
-            Quiero formar parte
-            <span className="text-xl">→</span>
-          </NavLink>
-     
+        <NavLink
+          to="/contacto"
+          className="bg-sf-teal hover:bg-[#5dafb8] text-white px-12 py-5 rounded-2xl font-bold text-sm tracking-[0.2em] uppercase transition-all shadow-xl active:scale-95 inline-flex items-center gap-4 mx-auto"
+        >
+          Quiero formar parte
+          <ArrowRight size={20} />
+        </NavLink>
       </div>
     </section>
   );

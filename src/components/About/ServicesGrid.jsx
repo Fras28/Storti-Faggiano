@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// Importamos la imagen de fondo
 import bgServices from "../../assets/nosotros/bg-services.jpg";
 
 const services = [
@@ -25,58 +26,47 @@ const services = [
 ];
 
 const ServicesGrid = () => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
 
-  const toggleCard = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  const toggleService = (id) => {
+    setExpandedId(expandedId === id ? null : id);
   };
 
   return (
-    <section className="relative py-20 overflow-hidden min-h-screen">
-      {/* CORRECCIÓN PARA MÓVIL: 
-        Añadimos 'bg-fixed' para que el fondo no se mueva al expandir las cards.
-      */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{ backgroundImage: `url(${bgServices})` }}
-      />
-      <div className="absolute inset-0 z-10 bg-white/40 backdrop-blur-[2px]" />
+    <section 
+      className="relative py-24 bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgServices})` }}
+    >
+      {/* Overlay para asegurar legibilidad si la imagen es muy clara */}
+      <div className="absolute inset-0 bg-black/10"></div>
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4">
-        <h2 className="text-5xl font-serif text-[#1a2e44] text-center mb-16">
-          Servicios
+      <div className="relative max-w-7xl mx-auto px-6 z-10">
+        <h2 className="text-center mb-16 text-white drop-shadow-md">
+          Nuestros Servicios
         </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-          {services.map((service, index) => {
-            const isExpanded = expandedIndex === index;
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          {services.map((service) => {
+            const isExpanded = expandedId === service.id;
             
             return (
               <div 
-                key={index}
-                onClick={() => toggleCard(index)}
-                className={`cursor-pointer transition-all duration-500 ease-in-out rounded-2xl overflow-hidden shadow-xl border border-white/10 flex flex-col
-                  ${isExpanded ? 'bg-white' : 'bg-[#6b7280]/90 backdrop-blur-md hover:-translate-y-2'}`}
+                key={service.id}
+                onClick={() => toggleService(service.id)}
+                className={`cursor-pointer transition-all duration-500 rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col
+                  ${isExpanded ? 'bg-white' : 'bg-[#6b7280]/90 backdrop-blur-md'}`}
               >
-                <div className={`p-8 min-h-[250px] flex flex-col justify-center transition-colors duration-500
+                {/* Encabezado */}
+                <div className={`p-8 min-h-[220px] flex flex-col justify-center transition-colors duration-500 
                   ${isExpanded ? 'bg-[#4b5563]' : ''}`}>
-                  <span className="text-4xl font-serif text-white/90 mb-4 block">
-                    {service.id}
-                  </span>
-                  <h3 className="text-xl font-medium text-white leading-tight">
-                    {service.title}
-                  </h3>
+                  <span className="h3 font-serif text-white/90 mb-4 block">{service.id}</span>
+                  <h3 className="text-white leading-tight">{service.title}</h3>
                 </div>
 
-                {/* Usamos una transición de altura suave que funciona 
-                  bien en dispositivos móviles 
-                */}
-                <div 
-                  className={`overflow-hidden transition-all duration-500 ease-in-out
-                    ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}
-                >
+                {/* Contenido Desplegable */}
+                <div className={`overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                   <div className="p-8 bg-white">
-                    <p className="text-[#4b5563] text-sm leading-relaxed text-pretty">
+                    <p className="body text-gray-600 text-sm leading-relaxed">
                       {service.description}
                     </p>
                   </div>
