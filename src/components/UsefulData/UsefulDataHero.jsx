@@ -3,40 +3,38 @@ import { Car, ShieldAlert, CreditCard, PhoneCall, Download } from 'lucide-react'
 import bgHero from "../../assets/datos-utiles/hero-datos-bg.png";
 
 const QuickLinks = [
-  { icon: <Car />, label: "Cómo actuar en caso de Siniestro", sub: "Ver guía paso a paso" },
-  { icon: <ShieldAlert />, label: "¿Qué hacer en caso de accidente laboral (ART)?", sub: "Ver protocolo ART" },
-  { icon: <CreditCard />, label: "Pago de póliza", sub: "Ver medios de pago" },
-  { icon: <PhoneCall />, label: "Números de emergencia", sub: "Ver contactos" },
-  { icon: <Download />, label: "Descargar documentación", sub: "Descargar archivos" },
+  { icon: <Car />, label: "Siniestros", sub: "Guía paso a paso" },
+  { icon: <ShieldAlert />, label: "Accidente ART", sub: "Protocolo" },
+  { icon: <CreditCard />, label: "Pagos", sub: "Medios de pago" },
+  { icon: <PhoneCall />, label: "Emergencias", sub: "0800 y WhatsApp" },
+  { icon: <Download />, label: "Documentación", sub: "Descargar archivos" },
 ];
 
 const UsefulDataHero = () => {
   return (
     <section className="relative">
-      {/* Banner Principal */}
-      <div className="relative h-[400px] overflow-hidden">
-        <img src={bgHero} className="w-full h-full object-cover" alt="Información útil" />
-        <div className="absolute inset-0 bg-black/40 flex items-center">
+      <div className="relative h-[450px] md:h-[500px] overflow-hidden">
+        <img src={bgHero} className="w-full h-full object-cover scale-105" alt="Información útil" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a2e44]/90 to-transparent flex items-center">
           <div className="max-w-7xl mx-auto px-6 w-full text-white">
-            <span className="text-xs uppercase tracking-widest font-bold mb-4 block">DATOS ÚTILES</span>
-            <h1 className="text-4xl md:text-6xl font-serif mb-4 max-w-2xl">
-              Información útil para actuar rápido cuando más lo necesitás
+            <span className="text-xs uppercase tracking-[0.4em] font-bold mb-4 block text-[#72c0c9]">DATOS ÚTILES</span>
+            <h1 className="text-5xl md:text-7xl font-yanone mb-6 max-w-3xl leading-tight uppercase">
+              Información clave para actuar con tranquilidad
             </h1>
-            <p className="text-lg text-gray-200 max-w-xl">
-              Te acercamos información útil y de contacto para que puedas realizar las gestiones correspondientes de la forma más ágil.
+            <p className="text-lg md:text-xl text-gray-200 max-w-xl font-light">
+              Te acercamos herramientas y contactos directos para que gestiones tus seguros de forma ágil y eficiente.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Tarjetas de Acceso Rápido */}
-      <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
+      <div className="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {QuickLinks.map((item, i) => (
-            <div key={i} className="bg-white p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition-all cursor-pointer border border-gray-50 text-center flex flex-col items-center">
-              <div className="text-sf-teal mb-4 bg-sf-teal/10 p-3 rounded-xl">{item.icon}</div>
-              <h3 className="text-[13px] font-bold text-gray-800 leading-tight mb-2">{item.label}</h3>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">{item.sub}</p>
+            <div key={i} className="bg-white p-6 rounded-3xl shadow-2xl hover:-translate-y-2 transition-all cursor-pointer border border-gray-100 text-center flex flex-col items-center">
+              <div className="text-[#72c0c9] mb-4 bg-[#72c0c9]/10 p-4 rounded-2xl">{item.icon}</div>
+              <h3 className="text-[13px] font-bold text-[#1a2e44] leading-tight mb-1">{item.label}</h3>
+              <p className="text-[10px] text-gray-400 uppercase tracking-tighter">{item.sub}</p>
             </div>
           ))}
         </div>

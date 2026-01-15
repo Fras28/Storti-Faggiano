@@ -3,13 +3,12 @@ import { MessageSquare, Phone, Truck, ShieldAlert } from 'lucide-react';
 
 const emergencyData = [
   {
-    category: "URGENCIAS POR WHATSAPP",
+    category: "URGENCIAS WHATSAPP",
     contacts: [
       { label: "Línea 1", value: "+54 9 291 4029635", link: "https://wa.me/5492914029635" },
       { label: "Línea 2", value: "+54 9 291 4029634", link: "https://wa.me/5492914029634" }
     ],
-    icon: <MessageSquare className="text-green-500" />,
-    color: "bg-green-50"
+    icon: <MessageSquare />, color: "bg-green-50 text-green-600"
   },
   {
     category: "COMPAÑÍAS (0800)",
@@ -17,60 +16,47 @@ const emergencyData = [
       { label: "Cooperación Seguros", value: "0800 777 7070", link: "tel:08007777070" },
       { label: "Sancor Seguros", value: "0800 777 4643", link: "tel:08007774643" }
     ],
-    icon: <Phone className="text-blue-500" />,
-    color: "bg-blue-50"
+    icon: <Phone />, color: "bg-blue-50 text-blue-600"
   },
   {
-    category: "SERVICIO DE GRÚA",
+    category: "GRÚA Y ASISTENCIA",
     contacts: [
-      { label: "Asistencia 24hs", value: "Ver póliza para número específico", link: "#" }
+      { label: "Servicio 24hs", value: "0800 333 3252", link: "tel:08003333252" },
+      { label: "Sms Grúa", value: "GRUA al 70703", link: "sms:70703?body=GRUA" }
     ],
-    icon: <Truck className="text-orange-500" />,
-    color: "bg-orange-50"
+    icon: <Truck />, color: "bg-orange-50 text-orange-600"
   },
   {
-    category: "DENUNCIAS ART",
+    category: "OTROS SERVICIOS",
     contacts: [
-      { label: "Centro de Atención", value: "0800 333 1333", link: "tel:08003331333" }
+      { label: "Emergencias Médicas", value: "911", link: "tel:911" },
+      { label: "Bomberos", value: "100", link: "tel:100" }
     ],
-    icon: <ShieldAlert className="text-red-500" />,
-    color: "bg-red-50"
+    icon: <ShieldAlert />, color: "bg-red-50 text-red-600"
   }
 ];
 
 const EmergencyNumbers = () => {
   return (
-    <section className="py-20 bg-[#1a2e44] text-white rounded-t-[60px] md:rounded-t-[100px]">
+    <section className="py-24 bg-[#1a2e44] text-white" id="emergencias">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-serif mb-4 text-gray-400">Números de emergencia</h2>
-            <p className="text-gray-400 max-w-xl">
-              Haciendo clic en cada número podrás iniciar una llamada o chat de forma inmediata.
-            </p>
-          </div>
-          <div className="h-1 w-24 bg-sf-teal rounded-full"></div>
+        <div className="mb-16">
+          <h2 className="text-5xl md:text-6xl font-yanone uppercase text-[#72c0c9]">Números de Emergencia</h2>
+          <div className="h-1 w-20 bg-[#72c0c9] mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {emergencyData.map((item, i) => (
-            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[32px] hover:bg-white/10 transition-all group">
-              <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                {item.icon}
+            <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-[40px] hover:bg-white/10 transition-all group shadow-xl">
+              <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                {React.cloneElement(item.icon, { size: 28 })}
               </div>
-              
-              <h3 className="text-[10px] font-bold tracking-[0.2em] text-sf-teal mb-4 uppercase">
-                {item.category}
-              </h3>
-
-              <div className="space-y-4">
+              <h3 className="text-[11px] font-bold tracking-[0.3em] text-[#72c0c9] mb-6 uppercase">{item.category}</h3>
+              <div className="space-y-6">
                 {item.contacts.map((contact, idx) => (
-                  <div key={idx}>
-                    <p className="text-[11px] text-gray-400 mb-1">{contact.label}</p>
-                    <a 
-                      href={contact.link}
-                      className="text-lg font-bold hover:text-sf-teal transition-colors block"
-                    >
+                  <div key={idx} className="border-l-2 border-white/10 pl-4">
+                    <p className="text-[11px] text-gray-400 mb-1 uppercase tracking-widest">{contact.label}</p>
+                    <a href={contact.link} className="text-xl font-bold hover:text-[#72c0c9] transition-colors block font-yanone tracking-wide">
                       {contact.value}
                     </a>
                   </div>
