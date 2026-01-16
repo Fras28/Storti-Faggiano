@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { 
   HelpCircle, ChevronRight, ChevronLeft, CheckCircle2, 
   XCircle, Bandage, Camera, AlertCircle, MapPin, 
-  User, Mail, Phone, Send 
+  User, Mail, Phone, Send, Loader2 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
@@ -12,7 +12,6 @@ import Cooperacion from "../assets/Partners/CooperacionSeguros.png";
 
 const DenunciaSiniestro = () => {
   const navigate = useNavigate();
-  const formRef = useRef();
   const [step, setStep] = useState(1);
   const [isSending, setIsSending] = useState(false);
   
@@ -31,6 +30,22 @@ const DenunciaSiniestro = () => {
   });
 
   const [previews, setPreviews] = useState([]);
+
+  // --- Lógica de Cloudinary ---
+  const uploadToCloudinary = async (file) => {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      { method: 'POST', body: data }
+    );
+
+    if (!res.ok) throw new Error('Error al subir imagen a Cloudinary');
+    const fileData = await res.json();
+    return fileData.secure_url;
+  };
 
   // --- Navegación ---
   const nextStep = () => setStep(prev => prev + 1);
@@ -61,62 +76,65 @@ const DenunciaSiniestro = () => {
     setFormData(prev => ({ ...prev, fotos: prev.fotos.filter((_, i) => i !== index) }));
   };
 
-  // --- Envío de Email ---
-// --- Envío de Email ---
-const handleSubmit = (e) => {
-  e.preventDefault();
-  setIsSending(true);
+  // --- Envío de Datos (Cloudinary + EmailJS) ---
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
 
-  // 1. CONFIGURACIÓN DE CREDENCIALES
-  const PUBLIC_KEY = "4IQsIjGTytu9Wzg6E";
-  const SERVICE_ID = "service_4noir19";
-  
-  // IDs de tus plantillas
-  const TEMPLATE_AGENCIA = "template_w30obyg";
-  const TEMPLATE_CLIENTE = "template_i6vbq1u";
+    try {
+      // 1. Subir imágenes a Cloudinary primero
+      const imageUrls = await Promise.all(
+        formData.fotos.map(foto => uploadToCloudinary(foto))
+      );
+      const photoLinksText = imageUrls.join('\n');
 
-  // 2. PARÁMETROS PARA EMAILJS
-  const templateParams = {
-    compania: formData.compania,
-    descripcion: formData.descripcion,
-    heridos: formData.heridos,
-    vehiculo: `${formData.marcaModelo} - Patente: ${formData.patente}`,
-    lugar: `${formData.ubicacion}, ${formData.localidad}`,
-    cliente_nombre: formData.nombreCliente,
-    cliente_email: formData.emailCliente,
-    cliente_tel: formData.telefonoCliente,
-    fotos_count: formData.fotos.length
-  };
+      // 2. Parámetros para las plantillas (cliente_nombre, vehiculo, etc.)
+      const templateParams = {
+        cliente_nombre: formData.nombreCliente,
+        cliente_email: formData.emailCliente,
+        cliente_tel: formData.telefonoCliente,
+        vehiculo: `${formData.marcaModelo} (Patente: ${formData.patente})`,
+        compania: formData.compania,
+        lugar: `${formData.ubicacion}, ${formData.localidad}`,
+        descripcion: formData.descripcion,
+        heridos: formData.heridos,
+        fotos_count: formData.fotos.length,
+        photo_links: photoLinksText // Links directos para el email de la empresa
+      };
 
-  // 3. ENVÍO DE CORREOS Y REDIRECCIÓN A WHATSAPP
-  Promise.all([
-    emailjs.send(SERVICE_ID, TEMPLATE_AGENCIA, templateParams, PUBLIC_KEY),
-    emailjs.send(SERVICE_ID, TEMPLATE_CLIENTE, templateParams, PUBLIC_KEY)
-  ])
-    .then(() => {
-      // Número de Siniestros SF (sin espacios ni símbolos)
+      // 3. Envío de correos mediante EmailJS usando variables de entorno
+      await Promise.all([
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_SINIESTROS,
+          templateParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        ),
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_CONTACTO,
+          templateParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+      ]);
+
+      // 4. Redirección final y aviso
       const nroWhatsApp = "5492914029635"; 
-      
-      const textoWhatsApp = `Hola! Soy ${formData.nombreCliente}. Acabo de completar la denuncia web por el siniestro del vehículo ${formData.marcaModelo} (Patente: ${formData.patente}). Aquí les adjunto las fotos correspondientes.`;
-      
+      const textoWhatsApp = `Hola! Soy ${formData.nombreCliente}. Acabo de completar la denuncia web por el siniestro del vehículo ${formData.marcaModelo}. Ya se enviaron las fotos al sistema.`;
       const urlWhatsApp = `https://wa.me/${nroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
 
-      alert("¡Denuncia enviada! Ahora se abrirá WhatsApp para que nos envíes las fotos.");
-      
-      // Abre WhatsApp en nueva pestaña
+      alert("¡Denuncia y fotos enviadas correctamente!");
       window.open(urlWhatsApp, '_blank');
-
-      // Navega al inicio
       navigate('/');
-    })
-    .catch((err) => {
-      alert("Hubo un error al procesar el envío. Por favor, intenta de nuevo.");
-      console.error("Error EmailJS:", err);
-    })
-    .finally(() => {
+
+    } catch (err) {
+      console.error("Error en el proceso:", err);
+      alert("Hubo un error al procesar las imágenes o el envío. Por favor, intenta de nuevo.");
+    } finally {
       setIsSending(false);
-    });
-};
+    }
+  };
+
   // --- Componente Barra de Progreso ---
   const ProgressBar = ({ currentStep }) => {
     const activeBlock = currentStep <= 1 ? 1 : currentStep <= 3 ? 2 : currentStep <= 5 ? 3 : 4;
@@ -147,42 +165,29 @@ const handleSubmit = (e) => {
         <form onSubmit={handleSubmit}>
           {/* PASO 1: COMPAÑÍA */}
           {step === 1 && (
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-    {[
-      { 
-        nombre: 'Federación Patronal', 
-        logo: FedPat 
-      },
-      { 
-        nombre: 'Sancor Seguros', 
-        logo: Sancor 
-      },
-      { 
-        nombre: 'Cooperación', 
-        logo: Cooperacion 
-      }
-    ].map((co) => (
-      <button 
-        key={co.nombre} 
-        type="button" 
-        onClick={() => { setFormData({...formData, compania: co.nombre}); nextStep(); }}
-        className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-50 flex flex-col items-center justify-between min-h-[250px] group"
-      >
-        <div className="w-full h-24 flex items-center justify-center p-2">
-          <img 
-            src={co.logo} 
-            alt={co.nombre} 
-            className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500"
-          />
-        </div>
-        <span className="font-bold text-gray-700 text-lg mt-4">{co.nombre}</span>
-        <div className="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-sf-teal/10 mt-2 transition-colors">
-          <CheckCircle2 className="text-gray-200 group-hover:text-[#72c0c9]" size={20} />
-        </div>
-      </button>
-    ))}
-  </div>
-)}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              {[
+                { nombre: 'Federación Patronal', logo: FedPat },
+                { nombre: 'Sancor Seguros', logo: Sancor },
+                { nombre: 'Cooperación', logo: Cooperacion }
+              ].map((co) => (
+                <button 
+                  key={co.nombre} 
+                  type="button" 
+                  onClick={() => { setFormData({...formData, compania: co.nombre}); nextStep(); }}
+                  className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-50 flex flex-col items-center justify-between min-h-[250px] group"
+                >
+                  <div className="w-full h-24 flex items-center justify-center p-2">
+                    <img src={co.logo} alt={co.nombre} className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  </div>
+                  <span className="font-bold text-gray-700 text-lg mt-4">{co.nombre}</span>
+                  <div className="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-sf-teal/10 mt-2 transition-colors">
+                    <CheckCircle2 className="text-gray-200 group-hover:text-[#72c0c9]" size={20} />
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* PASO 2: DESCRIPCIÓN */}
           {step === 2 && (
@@ -192,7 +197,7 @@ const handleSubmit = (e) => {
                 className="w-full h-64 p-8 rounded-[2.5rem] border-none shadow-sm focus:ring-2 focus:ring-sf-teal outline-none text-gray-600 text-lg resize-none"
                 placeholder="Describa brevemente cómo ocurrió el accidente..." />
               <div className="flex justify-end">
-                <button type="button" onClick={nextStep} disabled={!formData.descripcion} className="bg-[#72c0c9] disabled:opacity-50 text-white px-10 py-4 rounded-2xl font-bold flex items-center gap-2 uppercase tracking-widest shadow-lg">
+                <button type="button" onClick={nextStep} disabled={!formData.descripcion} className="bg-[#72c0c9] text-white px-10 py-4 rounded-2xl font-bold flex items-center gap-2 uppercase tracking-widest shadow-lg">
                   Siguiente <ChevronRight size={18} />
                 </button>
               </div>
@@ -291,18 +296,12 @@ const handleSubmit = (e) => {
                 </div>
                 <button type="submit" disabled={isSending} 
                   className="w-full bg-gray-800 text-white py-6 rounded-2xl font-bold uppercase tracking-[0.2em] shadow-2xl hover:bg-black transition-all flex justify-center items-center gap-3 disabled:opacity-50">
-                  {isSending ? "Enviando..." : "Enviar Denuncia"} <Send size={20} />
+                  {isSending ? <><Loader2 className="animate-spin" /> Procesando...</> : "Enviar Denuncia"} <Send size={20} />
                 </button>
               </div>
             </div>
           )}
         </form>
-
-        <div className="mt-12 flex justify-center italic text-gray-400">
-          <button type="button" className="flex items-center gap-2 hover:text-sf-teal transition-colors">
-            <HelpCircle size={18} /> <span className="text-sm font-bold uppercase tracking-widest">¿Necesitas ayuda?</span>
-          </button>
-        </div>
       </main>
     </div>
   );

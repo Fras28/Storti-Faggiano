@@ -27,16 +27,25 @@ const SiniestrosGuia = () => {
     }
   ];
 
-  // Lógica de Cloudinary
+  // Lógica de Cloudinary usando variables de entorno
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'siniestros_sf'); // Tu preset configurado
-
+    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+  
+    console.log("Subiendo archivo a Cloudinary...", file.name); // Debug
+  
     const res = await fetch(
-      `https://api.cloudinary.com/v1_1/dqdfpqwl4/image/upload`, // Tu Cloud Name
+      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
       { method: 'POST', body: formData }
     );
+  
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Error detallado de Cloudinary:", errorData); // Esto te dirá el motivo exacto
+      throw new Error('Error al subir imagen');
+    }
+  
     const data = await res.json();
     return data.secure_url;
   };
@@ -47,27 +56,39 @@ const SiniestrosGuia = () => {
     setStatus('sending');
 
     try {
-      // 1. Subir fotos a la nube
+      // 1. Subir fotos a Cloudinary
       const imageUrls = await Promise.all(
         images.map(img => uploadToCloudinary(img))
       );
 
-      // 2. Formatear links para el mail
       const photoLinksText = imageUrls.join('\n');
 
-      // 3. Enviar vía EmailJS
+      // 2. Preparar los parámetros para los templates (cliente_nombre, vehiculo, etc.)
       const templateParams = {
-        user_name: e.target.user_name.value,
-        user_email: e.target.user_email.value,
-        incident_type: selectedCategory.title,
-        description: e.target.description.value,
-        photo_links: photoLinksText
+        cliente_nombre: e.target.user_name.value,
+        cliente_email: e.target.user_email.value,
+        cliente_tel: e.target.user_phone.value,
+        vehiculo: selectedCategory.title, 
+        compania: e.target.compania.value,
+        lugar: e.target.lugar.value,
+        descripcion: e.target.description.value,
+        heridos: "Ver descripción", // Opcional: podrías agregar un campo más
+        fotos_count: images.length,
+        photo_links: photoLinksText,
       };
 
-      // Dentro del envío en tu componente de Contacto
+      // 3. ENVIAR EMAIL A LA EMPRESA (Reporte Detallado)
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_CONTACTO, // Usamos el ID de Contacto
+        import.meta.env.VITE_EMAILJS_TEMPLATE_SINIESTROS,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      // 4. ENVIAR EMAIL AL CLIENTE (Confirmación)
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_CONTACTO,
         templateParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
@@ -75,7 +96,7 @@ const SiniestrosGuia = () => {
       setStatus('success');
     } catch (error) {
       console.error(error);
-      alert("Hubo un problema al enviar el siniestro. Intente nuevamente.");
+      alert("Hubo un problema al procesar el reporte. Intente nuevamente.");
       setStatus('idle');
     } finally {
       setUploading(false);
@@ -123,7 +144,7 @@ const SiniestrosGuia = () => {
         ) : (
           <div className="animate-in fade-in duration-500">
             <button
-              onClick={() => { setSelectedCategory(null); setStatus('idle'); }}
+              onClick={() => { setSelectedCategory(null); setStatus('idle'); setImages([]); }}
               className="flex items-center gap-2 text-sf-teal font-bold mb-8 hover:underline"
             >
               <ArrowLeft size={20} /> Volver a categorías
@@ -141,24 +162,66 @@ const SiniestrosGuia = () => {
                     <CheckCircle size={80} />
                   </div>
                   <h3 className="text-3xl font-serif mb-2 text-gray-800">¡Reporte Enviado!</h3>
-                  <p className="text-gray-500 mb-8 max-w-sm">Hemos recibido la información y fotos del siniestro. Un asesor se comunicará a la brevedad.</p>
-                  <button onClick={() => setSelectedCategory(null)} className="text-sf-teal font-bold border-2 border-sf-teal px-8 py-3 rounded-xl">Hacer otro reporte</button>
+                  <p className="text-gray-500 mb-8 max-w-sm">Hemos recibido la información y fotos del siniestro. Un asesor se comunicará a la brevedad al teléfono indicado.</p>
+                  <button onClick={() => { setSelectedCategory(null); setStatus('idle'); }} className="text-sf-teal font-bold border-2 border-sf-teal px-8 py-3 rounded-xl">Hacer otro reporte</button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input name="user_name" placeholder="Nombre completo del asegurado" required className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" />
-                    <input name="user_email" type="email" placeholder="Email de contacto" required className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" />
+                    <input 
+                      name="user_name" 
+                      placeholder="Nombre completo del asegurado" 
+                      required 
+                      className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" 
+                    />
+                    <input 
+                      name="user_email" 
+                      type="email" 
+                      placeholder="Email de contacto" 
+                      required 
+                      className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" 
+                    />
+                    <input 
+                      name="user_phone" 
+                      type="tel" 
+                      placeholder="Teléfono (WhatsApp)" 
+                      required 
+                      className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" 
+                    />
+                    <select 
+                      name="compania" 
+                      required 
+                      className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal bg-white"
+                    >
+                      <option value="">Seleccione su Aseguradora</option>
+                      <option value="Federación Patronal">Federación Patronal</option>
+                      <option value="Sancor Seguros">Sancor Seguros</option>
+                      <option value="Mercantil Andina">Mercantil Andina</option>
+                      <option value="Rivadavia">Seguros Rivadavia</option>
+                      <option value="Otras">Otras / No estoy seguro</option>
+                    </select>
                   </div>
 
-                  <textarea name="description" placeholder="Relato del siniestro (Fecha, lugar y descripción breve)..." rows="4" className="w-full px-5 py-4 rounded-3xl border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal resize-none"></textarea>
+                  <input 
+                    name="lugar" 
+                    placeholder="Lugar del accidente (Ciudad, calle o referencia)" 
+                    required 
+                    className="w-full px-5 py-3 rounded-full border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal" 
+                  />
+
+                  <textarea 
+                    name="description" 
+                    placeholder="Relato de lo sucedido..." 
+                    rows="4" 
+                    className="w-full px-5 py-4 rounded-3xl border border-gray-200 outline-none focus:ring-2 focus:ring-sf-teal resize-none"
+                  ></textarea>
 
                   <div className="p-10 border-2 border-dashed border-gray-200 rounded-[30px] text-center hover:border-sf-teal transition-colors group bg-white">
                     <input
                       type="file"
                       multiple
                       accept="image/*"
-                      onChange={(e) => setImages([...e.target.files])}
+                      onChange={(e) => setImages(Array.from(e.target.files))}
                       className="hidden"
                       id="photo-upload"
                     />
@@ -181,7 +244,7 @@ const SiniestrosGuia = () => {
                     className="w-full bg-[#1a2e44] text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-sf-teal transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
                   >
                     {uploading ? (
-                      <><Loader2 className="animate-spin" /> Subiendo información...</>
+                      <><Loader2 className="animate-spin" /> Procesando y enviando...</>
                     ) : (
                       <><Send size={18} /> Enviar Reporte de Siniestro</>
                     )}
