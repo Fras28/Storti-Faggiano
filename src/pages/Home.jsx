@@ -9,22 +9,19 @@ import AboutUs from '../components/AboutUs';
 import PaymentMethods from '../components/PaymentMethods';
 import AboutUsVertical from '../components/AboutUsVertical';
 
+// En Home.jsx, cambia la etiqueta <main> por esta:
 const Home = () => {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Sección Hero (La parte oscura con el auto chocado) */}
+    <main className="min-h-screen bg-white overflow-x-hidden"> 
+      {/* overflow-x-hidden es la clave: corta cualquier cosa que quiera salirse de lado */}
       <Hero />
-
-      {/* Sección Métodos de Pago */}
-    <PaymentMethods/>
-
-     {/* <AboutUs/> */}
-     <AboutUsVertical/>
-    <ProductsSection/>
-    <PaymentSection/>
-    <Partners/>
-    <ClaimsSection/>
-    <NewsSection/>
+      <PaymentMethods/>
+      <AboutUsVertical/>
+      <ProductsSection/>
+      <PaymentSection/>
+      <Partners/>
+      <ClaimsSection/>
+      <NewsSection/>
     </main>
   );
 };

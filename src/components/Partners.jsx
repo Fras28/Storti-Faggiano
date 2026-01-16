@@ -25,7 +25,7 @@ const Partners = () => {
                 
                 <Swiper
                     modules={[Autoplay]}
-                    spaceBetween={50}
+                    spaceBetween={20}
                     slidesPerView={2}
                     loop={partners.length > 5}
                     autoplay={{ delay: 3000, disableOnInteraction: false }}

@@ -12,14 +12,15 @@ const stats = [
 
 const AboutUsVertical = () => {
     return (
-        <section className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
-            <h2 className='m-auto text-center pb-10'>Nosotros</h2>
-            <div className='m-auto pb-10 px-0 md:px-28 '>
-<p className='text-center'>Somos una organización líder en seguros dedicada a proteger lo que más le importa. Con décadas de experiencia y un compromiso con la excelencia, ofrecemos soluciones integrales de seguros. </p>
-              
-            </div>
-            
+        <section className="py-12 md:py-20 bg-white overflow-hidden"> {/* Añade overflow-hidden aquí también */}
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
+                <h2 className='text-center pb-6 md:pb-10 text-3xl md:text-5xl'>Nosotros</h2>
+                <div className='max-w-3xl mx-auto pb-10 px-0'> {/* Quité el md:px-28 que causaba problemas */}
+                    <p className='text-center text-gray-600'>
+                        Somos una organización líder en seguros dedicada a proteger lo que más le importa...
+                    </p>
+                </div>
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
                     {stats.map((stat, index) => (
                         <motion.div
@@ -48,7 +49,7 @@ const AboutUsVertical = () => {
                     </div>
 
                     <div className="w-full lg:w-1/2">
-                    <h2 className="mb-6">
+                        <h2 className="mb-6">
                             Su socio de confianza en seguros
                         </h2>
                         <p className="text-gray-600 text-lg mb-8">

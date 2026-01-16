@@ -32,7 +32,7 @@ const Hero = () => {
   ];
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Swiper
         modules={[Pagination, Navigation, Autoplay]}
         pagination={{ clickable: true }}
@@ -42,24 +42,27 @@ const Hero = () => {
         }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         loop={slides.length > 1}
-        className="h-[500px] md:h-[650px]"
+        className="h-[550px] md:h-[650px]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className={`relative h-full w-full ${slide.bgColor} flex items-center`}>
-              <div className="absolute inset-0 opacity-40">
+              {/* Imagen de fondo con overlay más oscuro para mobile */}
+              <div className="absolute inset-0 opacity-50 md:opacity-40">
                 <img src={slide.image} alt="" className="w-full h-full object-cover" />
               </div>
-              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-left">
-                <div className="max-w-2xl text-white">
-                  <h1 className="leading-tight mb-6 drop-shadow-md">
+              
+              {/* Contenedor de Texto con padding y alineación responsive */}
+              <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center md:text-left">
+                <div className="max-w-2xl text-white mx-auto md:mx-0">
+                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6 drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="mb-8 opacity-90 max-w-lg">
+                  <p className="text-sm md:text-lg mb-8 opacity-95 max-w-lg mx-auto md:mx-0">
                     {slide.description}
                   </p>
                   <NavLink to={slide.link}>
-                    <button className="button-1 bg-[#72C0C8] hover:bg-[#5dafb8] text-white px-8 py-4 rounded-2xl transition-all shadow-lg active:scale-95">
+                    <button className="bg-[#72C0C8] hover:bg-[#5dafb8] text-white px-8 py-4 rounded-2xl transition-all shadow-lg active:scale-95 text-sm md:text-base font-bold">
                       {slide.buttonText}
                     </button>
                   </NavLink>
@@ -69,7 +72,7 @@ const Hero = () => {
           </SwiperSlide>
         ))}
 
-        {/* Flechas con hover individual, ya no dependen del group del padre */}
+        {/* Flechas ocultas en mobile para mejorar la UX táctil */}
         <button className="swiper-button-prev-custom absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/30 p-3 rounded-full text-white backdrop-blur-sm transition-all hidden md:block">
           <ChevronLeft size={24} />
         </button>
@@ -78,8 +81,9 @@ const Hero = () => {
         </button>
       </Swiper>
 
-      <section className="max-w-7xl mx-auto px-6 -mt-20 relative z-30 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {/* Sección de Tarjetas: Ajuste de margen y espaciado */}
+      <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-10 md:-mt-20 relative z-30 pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <ServiceCard icon={<Car size={24} />} title="Denuncia un Siniestro" desc="Presente su reclamación por accidente en línea de forma rápida." />
           <ServiceCard icon={<Plus size={24} />} title="Qué hacer en caso de accidente" desc="Guía paso a paso para gestionar su siniestro sin demoras." />
           <ServiceCard icon={<Phone size={24} />} title="Números de emergencia" desc="Acceso rápido a todos los números de contacto 24hs." />
@@ -91,12 +95,12 @@ const Hero = () => {
 };
 
 const ServiceCard = ({ icon, title, desc }) => (
-  <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 cursor-pointer group">
+  <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col items-center md:items-start text-center md:text-left">
     <div className="bg-gray-100 group-hover:bg-sf-teal group-hover:text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-gray-600 transition-colors">
       {icon}
     </div>
-    <h4 className="mb-2 text-gray-800">{title}</h4>
-    <p className="caption text-gray-500">{desc}</p>
+    <h4 className="text-lg font-bold mb-2 text-gray-800">{title}</h4>
+    <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
   </div>
 );
 
