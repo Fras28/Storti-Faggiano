@@ -1,41 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@400;700&family=Yanone+Kaffeesatz:wght@200..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@400;700&family=Yanone+Kaffeesatz:wght@200..700&display=swap');
 
 @layer base {
-  h1 {
-    @apply font-merriweather font-normal;
-    font-size: 64px;
+  /* Aplicar Lato a todo el sitio por defecto */
+  body {
+    @apply font-lato text-gray-800;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2 {
+    @apply font-merriweather font-normal; /* Usa la configuración de tailwind.config.cjs */
     letter-spacing: 1px;
   }
 
-  h2 {
-    @apply font-merriweather font-normal;
-    font-size: 48px;
-    letter-spacing: 1px;
-    color: #1E1D24;
-  }
-
-  h3 {
-    @apply font-lato;
-    font-size: 24px;
-    font-weight: 600; /* Semibold */
-    letter-spacing: -0.003em; /* -0.3% */
-  }
-
-  h4 {
-    @apply font-lato;
-    font-size: 16px;
-    font-weight: 600; /* Semibold */
-    letter-spacing: 0.0031em; /* 0.31% */
-  }
-
-  body, p {
-    @apply font-lato font-normal;
-    font-size: 16px;
-    letter-spacing: 0.01em; /* 1% */
+  h3, h4 {
+    @apply font-lato font-semibold;
   }
 }
 
