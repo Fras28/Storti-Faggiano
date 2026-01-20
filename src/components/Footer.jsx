@@ -59,9 +59,9 @@ const Footer = () => {
         {/* Columna 3: Botones de Acción */}
         {/* Botones grandes y fáciles de presionar en móviles */}
         <div className="md:col-span-4 flex flex-col gap-4">
-          <ActionBtn text="DENUNCIAR SINIESTRO" color="bg-[#e11d48]" /> {/* Rojo para emergencias */}
-          <ActionBtn text="COTIZAR" color="bg-[#0095ff]" />
-          <ActionBtn text="CONTACTÁNOS" color="bg-gray-700" />
+          <ActionBtn text="DENUNCIAR SINIESTRO" color="bg-[#67B8C3]" /> {/* Rojo para emergencias */}
+          <ActionBtn text="COTIZAR" color="bg-[#67B8C3]" />
+          <ActionBtn text="CONTACTÁNOS" color="bg-[#67B8C3]" />
         </div>
       </div>
 

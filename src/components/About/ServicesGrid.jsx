@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// Importamos la imagen de fondo
 import bgServices from "../../assets/nosotros/bg-services.jpg";
 
 const services = [
@@ -34,10 +33,13 @@ const ServicesGrid = () => {
 
   return (
     <section 
-      className="relative py-24 bg-cover bg-center"
-      style={{ backgroundImage: `url(${bgServices})` }}
+      className="relative py-24 bg-cover bg-center bg-no-repeat min-h-[1100px] md:min-h-[850px]"
+      style={{ 
+        backgroundImage: `url(${bgServices})`,
+        backgroundAttachment: 'scroll' // Evita problemas de renderizado en navegadores móviles
+      }}
     >
-      {/* Overlay para asegurar legibilidad si la imagen es muy clara */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/10"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 z-10">
@@ -57,10 +59,10 @@ const ServicesGrid = () => {
                   ${isExpanded ? 'bg-white' : 'bg-[#6b7280]/90 backdrop-blur-md'}`}
               >
                 {/* Encabezado */}
-                <div className={`p-8 min-h-[220px] flex flex-col justify-center transition-colors duration-500 
+                <div className={`p-8 min-h-[180px] md:min-h-[220px] flex flex-col justify-center transition-colors duration-500 
                   ${isExpanded ? 'bg-[#4b5563]' : ''}`}>
-                  <span className="h3 font-serif text-white/90 mb-4 block">{service.id}</span>
-                  <h3 className="text-white leading-tight">{service.title}</h3>
+                  <span className="h3 font-serif text-white/90 mb-2 md:mb-4 block">{service.id}</span>
+                  <h3 className="text-white text-xl md:text-2xl leading-tight">{service.title}</h3>
                 </div>
 
                 {/* Contenido Desplegable */}
