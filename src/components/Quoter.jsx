@@ -35,13 +35,15 @@ const Quoter = () => {
 
   const handleWhatsApp = (type) => {
     const message = encodeURIComponent(`Hola! Me interesa obtener una cotización para un seguro de ${type}.`);
-    window.open(`https://wa.me/5492914029635?text=${message}`, '_blank');
+    window.open(`https://wa.me/+54929141812735?text=${message}`, '_blank');
   };
 
   return (
     <div className="py-12 md:py-24 bg-[#fcfdfe] px-4 md:px-6">
       <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20">
-        <h2 className="text-4xl md:text-6xl font-serif italic text-gray-800 mb-4">¿Qué le gustaría asegurar hoy?</h2>
+      <h2 className="text-4xl md:text-6xl text-gray-800 mb-4 break-words md:whitespace-nowrap">
+  ¿Qué le gustaría asegurar hoy?
+</h2>
         <div className="w-16 h-1 bg-teal-500 mx-auto mb-6"></div>
         <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto">
           Seleccioná el tipo de cobertura que necesitás y ponete en contacto con nuestros asesores.
@@ -70,7 +72,7 @@ const Quoter = () => {
               <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 leading-tight">
                 {item.title}
               </h3>
-              <p className="text-xs md:text-sm text-gray-400 font-medium uppercase tracking-widest mb-4">
+              <p className="text-xs md:text-sm text-gray-400 font-medium  tracking-widest mb-4">
                 {item.desc}
               </p>
 
@@ -83,9 +85,9 @@ const Quoter = () => {
             <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
               activeId === item.id ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
             }`}>
-              <div className="px-8 pb-8 pt-2 text-center">
+              <div className="px-8 pb-8 text-center">
                 <div className="w-full h-px bg-gray-100 mb-6 mx-auto"></div>
-                <p className="text-sm md:text-base text-gray-600 mb-8 leading-relaxed italic">
+                <p className="text-sm md:text-base text-gray-600 mb-8 leading-relaxed ">
                   "{item.details}"
                 </p>
                 
@@ -94,7 +96,7 @@ const Quoter = () => {
                     e.stopPropagation();
                     handleWhatsApp(item.title);
                   }}
-                  className="w-full bg-[#0095ff] hover:bg-[#007acc] text-white py-4 rounded-2xl font-bold text-xs tracking-widest flex items-center justify-center gap-3 transition-all shadow-lg active:scale-95 uppercase"
+                  className="w-full bg-[#78cad3] hover:bg-[#007acc] text-white py-4 rounded-2xl font-bold text-sm tracking-widest flex items-center justify-center gap-3 transition-all shadow-lg active:scale-95 "
                 >
                   <MessageCircle size={18} />
                   Contactar Asesor

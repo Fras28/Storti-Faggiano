@@ -241,7 +241,7 @@ const SiniestrosGuia = () => {
 
                   <button
                     disabled={uploading}
-                    className="w-full bg-[#1a2e44] text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-sf-teal transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
+                    className="w-full bg-[#1a2e44] text-white py-4 rounded-2xl font-bold  tracking-widest text-sm hover:bg-sf-teal transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-lg"
                   >
                     {uploading ? (
                       <><Loader2 className="animate-spin" /> Procesando y enviando...</>
@@ -261,7 +261,7 @@ const SiniestrosGuia = () => {
             href="https://wa.me/542914553332"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#72c0c9] text-white px-10 py-3 rounded-xl font-bold uppercase tracking-widest hover:brightness-105 transition-all flex items-center gap-2 shadow-md"
+            className="bg-[#72c0c9] text-white px-10 py-3 rounded-xl font-bold  tracking-widest hover:brightness-105 transition-all flex items-center gap-2 shadow-md"
           >
             Whatsapp
           </a>

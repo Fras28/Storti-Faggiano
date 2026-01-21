@@ -18,7 +18,7 @@ const UsefulDataHero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[#1a2e44]/90 to-transparent flex items-center">
           <div className="max-w-7xl mx-auto px-6 w-full text-white">
             <span className="text-xs uppercase tracking-[0.4em] font-bold mb-4 block text-[#72c0c9]">DATOS ÚTILES</span>
-            <h1 className="text-5xl md:text-7xl font-yanone mb-6 max-w-3xl leading-tight uppercase">
+            <h1 className="mb-6 max-w-3xl leading-tight ">
               Información clave para actuar con tranquilidad
             </h1>
             <p className="text-lg md:text-xl text-gray-200 max-w-xl font-light">

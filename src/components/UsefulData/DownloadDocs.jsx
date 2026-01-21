@@ -37,7 +37,7 @@ const DownloadDocs = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-7xl font-yanone text-white uppercase mb-4">
+          <h2 className=" text-white  mb-4">
             Descarga de Documentación
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">

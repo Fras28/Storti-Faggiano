@@ -31,7 +31,7 @@ const Navbar = () => {
     { name: 'SINIESTROS', path: '/siniestros' },
     { name: 'SERVICIOS', path: '/servicios' },
     { name: 'DATOS ÚTILES', path: '/datos-utiles' },
-    { name: 'BLOG', path: '/blog' },
+    // { name: 'BLOG', path: '/blog' },
     { name: 'CONTACTO', path: '/contacto' },
   ];
 
@@ -43,32 +43,7 @@ const Navbar = () => {
   return (
     <header className="w-full bg-white sticky top-0 z-[100] shadow-sm">
       {/* Top Bar: Visible en Desktop */}
-      <div className="hidden lg:block border-b border-gray-50">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex gap-6">
-            <div className="flex items-center gap-2 text-gray-500">
-              <MapPin size={14} className="text-[#72c0c9]" />
-              <span className="caption lowercase">Av. Colón 54, Bahía Blanca</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-500">
-              <Phone size={14} className="text-[#72c0c9]" />
-              <span className="caption">291 455-5555</span>
-            </div>
-          </div>
-          {/* Reemplazo de Redes Sociales por WhatsApp */}
-          <div className="flex items-center gap-4">
-            <a 
-              href="https://wa.me/5492914555555" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="flex items-center gap-2 text-gray-400 hover:text-[#72c0c9] transition-colors"
-            >
-              <span className="caption text-xs">Chat Empresas</span>
-              <WhatsAppIcon size={16} />
-            </a>
-          </div>
-        </div>
-      </div>
+    
 
       {/* Navbar Principal */}
       <div className="max-w-7xl mx-auto px-4 lg:px-6 h-20 flex justify-between items-center">
@@ -95,17 +70,17 @@ const Navbar = () => {
 
         {/* Desktop Actions: Aplicando Button 1 (Lato Bold 14px 0.5%) */}
         <div className="hidden lg:flex items-center gap-3">
-          <button 
+          {/* <button 
             onClick={handleIngreso}
             className="button-1 bg-[#374151] text-white px-6 py-2.5 rounded-xl hover:bg-gray-800 transition-all shadow-sm"
           >
             INGRESO
-          </button>
+          </button> */}
           <a 
             href="https://wa.me/5492914555555" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="button-1 bg-[#72c0c9] text-white px-5 py-2.5 rounded-xl hover:brightness-105 transition-all shadow-sm"
+            className="button-1 bg-[#72c0c9] text-white px-5 py-2.5 rounded-xl hover:bg-[#72c0c9] transition-all shadow-sm"
           >
             WHATSAPP
           </a>

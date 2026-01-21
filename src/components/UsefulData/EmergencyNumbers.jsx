@@ -41,7 +41,7 @@ const EmergencyNumbers = () => {
     <section className="py-24 bg-[#1a2e44] text-white" id="emergencias">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16">
-          <h2 className="text-5xl md:text-6xl font-yanone uppercase text-[#72c0c9]">Números de Emergencia</h2>
+          <h2 className="text-[#72c0c9]">Números de Emergencia</h2>
           <div className="h-1 w-20 bg-[#72c0c9] mt-4 rounded-full"></div>
         </div>
 
@@ -56,7 +56,7 @@ const EmergencyNumbers = () => {
                 {item.contacts.map((contact, idx) => (
                   <div key={idx} className="border-l-2 border-white/10 pl-4">
                     <p className="text-[11px] text-gray-400 mb-1 uppercase tracking-widest">{contact.label}</p>
-                    <a href={contact.link} className="text-xl font-bold hover:text-[#72c0c9] transition-colors block font-yanone tracking-wide">
+                    <a href={contact.link} className="d hover:text-[#72c0c9] transition-colors block  tracking-wide">
                       {contact.value}
                     </a>
                   </div>

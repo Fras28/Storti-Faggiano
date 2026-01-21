@@ -28,7 +28,7 @@ const ArtInstructions = () => {
   return (
     <section className="py-12 bg-white" id="art">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-5xl md:text-6xl font-yanone text-[#1a2e44] mb-4 uppercase">
+        <h2 className=" text-[#1a2e44] mb-4 ">
           Accidente laboral (ART)
         </h2>
         <p className="text-gray-600 mb-12 text-lg leading-relaxed">

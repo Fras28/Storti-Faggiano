@@ -6,7 +6,7 @@ const JoinTeamCTA = () => {
   return (
     <section className="py-24 bg-gray-50 text-center">
       <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-5xl md:text-7xl font-yanone text-sf-dark mb-10 uppercase tracking-tight">
+        <h2 className=" mb-10  tracking-tight reak-words md:whitespace-nowrap">
           Sumate a nuestro equipo
         </h2>
        

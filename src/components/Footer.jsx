@@ -18,7 +18,7 @@ const Footer = () => {
             Somos una Organización de Seguros con 25 años de trayectoria en el mercado, conformada en forma exclusiva por Productores Asesores de Seguros matriculados.
           </p>
           
-          <div className="text-[12px] md:text-[13px] text-gray-500 space-y-1 italic">
+          <div className="text-[12px] md:text-[13px] text-gray-500 space-y-1 ">
             <p>SuperIntendencia de Seguros de la Nación</p>
             <p>SuperIntendencia de Riesgos de Trabajo</p>
             <p>SuperIntendencia de Servicios de Salud</p>
@@ -66,7 +66,7 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom Line */}
-      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-800 text-center text-[11px] text-gray-600 uppercase tracking-widest">
+      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-gray-800 text-center text-[11px] text-gray-600  tracking-widest">
         © {new Date().getFullYear()} Storti & Faggiano - Todos los derechos reservados.
       </div>
     </footer>

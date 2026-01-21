@@ -12,7 +12,9 @@ const stats = [
 
 const AboutUsVertical = () => {
     return (
-        <section className="py-12 md:py-20 bg-white overflow-hidden"> {/* Añade overflow-hidden aquí también */}
+        <section className="py-12 md:py-20 bg-white overflow-hidden text-center"> {/* Añade overflow-hidden aquí también */}
+            
+            <span className="caption text-sf-teal  tracking-[0.2em] mb-3 block uppercase justify-center">Storti & Faggiano</span>
             <div className="max-w-7xl mx-auto px-4 md:px-6">
                 <h2 className='text-center pb-6 md:pb-10 text-3xl md:text-5xl'>Nosotros</h2>
                 <div className='max-w-3xl mx-auto pb-10 px-0'> {/* Quité el md:px-28 que causaba problemas */}
@@ -33,7 +35,7 @@ const AboutUsVertical = () => {
                                 {stat.icon}
                             </div>
                             <h4 className="text-3xl font-bold text-gray-800">{stat.number}</h4>
-                            <p className="text-gray-500 text-xs uppercase tracking-widest mt-1">{stat.label}</p>
+                            <p className="text-gray-500 text-xs  tracking-widest mt-1">{stat.label}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -66,9 +68,6 @@ const AboutUsVertical = () => {
                             ))}
                         </div>
 
-                        <button className="bg-[#1a2b3c] text-white px-8 py-4 rounded-lg font-bold hover:bg-[#0095ff] transition-colors">
-                            Más Información
-                        </button>
                     </div>
                 </div>
 

@@ -65,19 +65,19 @@ const Siniestros = () => {
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
                   <div className="max-w-2xl">
-                    <span className="caption uppercase tracking-[0.4em] text-[#72c0c9] font-bold mb-4 block">
+                    <span className="caption  tracking-[0.4em] text-[#72c0c9] font-bold mb-4 block">
                       {slide.tag}
                     </span>
-                    <h1 className="text-6xl md:text-8xl font-yanone text-sf-dark mb-6 leading-[0.9] uppercase">
+                    <h1 className="  text-sf-dark mb-6 leading-[1]  ">
                       {slide.title}
                     </h1>
-                    <p className="body text-gray-600 text-lg md:text-xl mb-10 max-w-md leading-relaxed">
+                    <p className="body text-gray-600  mb-10 max-w-md leading-relaxed">
                       {slide.description}
                     </p>
                     
                     <button 
                       onClick={() => handleNavigation(slide.link)}
-                      className="button-1 flex items-center gap-3 bg-[#72c0c9] hover:bg-[#5eb0b9] text-white px-10 py-5 rounded-2xl transition-all transform hover:scale-105 shadow-xl uppercase tracking-widest text-sm"
+                      className="button-1 flex items-center gap-3 bg-[#72c0c9] hover:bg-[#5eb0b9] text-white px-10 py-5 rounded-2xl transition-all transform hover:scale-105 shadow-xl  tracking-widest "
                     >
                       {slide.buttonText}
                       <ArrowRight size={20} />
@@ -101,8 +101,8 @@ const Siniestros = () => {
       {/* 2. INFO CARDS SECTION (Diseño consistente con ProducersBenefits) */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-yanone text-sf-dark uppercase mb-4">Información Importante</h2>
-          <p className="body text-gray-500 max-w-2xl mx-auto">Te acompañamos en cada paso para que la gestión de tu siniestro sea lo más simple posible.</p>
+          <h2 className=" text-sf-dark  mb-4">Información Importante</h2>
+          <p className="body text-gray-500 mx-auto">Te acompañamos en cada paso para que la gestión de tu siniestro sea lo más simple posible.</p>
         </div>
 
         <div className="max-w-7xl mx-auto px-6">
@@ -111,7 +111,7 @@ const Siniestros = () => {
               <div className="w-16 h-16 bg-[#72c0c9]/10 rounded-full flex items-center justify-center text-[#72c0c9] mb-6">
                 <ShieldAlert size={32} />
               </div>
-              <h3 className="text-3xl font-yanone text-sf-dark mb-4 uppercase">Tranquilidad</h3>
+              <h3 className="text-sf-dark mb-4 ">Tranquilidad</h3>
               <p className="body text-gray-600 text-sm leading-relaxed">Asesoramiento inmediato ante cualquier evento imprevisto.</p>
             </div>
 
@@ -119,7 +119,7 @@ const Siniestros = () => {
               <div className="w-16 h-16 bg-[#72c0c9]/10 rounded-full flex items-center justify-center text-[#72c0c9] mb-6">
                 <FileText size={32} />
               </div>
-              <h3 className="text-3xl font-yanone text-sf-dark mb-4 uppercase">Documentación</h3>
+              <h3 className="text-sf-dark mb-4 ">Documentación</h3>
               <p className="body text-gray-600 text-sm leading-relaxed">Te ayudamos a preparar toda la documentación requerida por la compañía.</p>
             </div>
 
@@ -127,7 +127,7 @@ const Siniestros = () => {
               <div className="w-16 h-16 bg-[#72c0c9]/10 rounded-full flex items-center justify-center text-[#72c0c9] mb-6">
                 <CheckCircle size={32} />
               </div>
-              <h3 className="text-3xl font-yanone text-sf-dark mb-4 uppercase">Seguimiento</h3>
+              <h3 className="text-sf-dark mb-4 ">Seguimiento</h3>
               <p className="body text-gray-600 text-sm leading-relaxed">Monitoreamos el estado de tu denuncia hasta su resolución final.</p>
             </div>
           </div>

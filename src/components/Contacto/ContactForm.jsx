@@ -36,8 +36,8 @@ const ContactForm = () => {
         {/* Información de Contacto Izquierda */}
         <div>
           <span className="text-xs uppercase tracking-[0.3em] text-sf-teal font-bold mb-4 block">CONTACTO</span>
-          <h2 className="text-5xl font-serif text-[#1a2e44] mb-8">Estamos para ayudarte</h2>
-          <p className="text-gray-600 text-lg mb-12">
+          <h2 className="text-[#1a2e44] mb-8">Estamos para ayudarte</h2>
+          <p className="text-gray-600 mb-12">
             Comunicate con nosotros por cualquiera de nuestros canales de atención o completá el formulario y un asesor se pondrá en contacto a la brevedad.
           </p>
 
@@ -101,7 +101,7 @@ const ContactForm = () => {
             <button 
               type="submit" 
               disabled={isSending}
-              className={`w-full py-4 rounded-2xl font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-3 transition-all ${isSending ? 'bg-gray-400' : 'bg-[#1a2e44] hover:bg-sf-teal text-white shadow-lg active:scale-95'}`}
+              className={`w-full py-4 rounded-2xl font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-3 transition-all ${isSending ? 'bg-gray-400' : 'bg-sf-teal hover:bg-[#1a2e44] text-white shadow-lg active:scale-95'}`}
             >
               {isSending ? 'Enviando...' : 'Enviar Mensaje'}
               <Send size={18} />

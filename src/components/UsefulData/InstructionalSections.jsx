@@ -16,7 +16,7 @@ const InstructionalSections = () => {
         
         {/* Sección Siniestros */}
         <div id="siniestros">
-          <h2 className="text-5xl md:text-6xl font-yanone text-[#1a2e44] mb-6 uppercase">¿Tuviste un siniestro?</h2>
+          <h2 className=" text-[#1a2e44] mb-6 ">¿Tuviste un siniestro?</h2>
           <p className="text-gray-600 text-lg mb-12">Recopilá esta información clave en el momento del hecho para agilizar tu denuncia:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {SiniestroSteps.map((step, i) => (
@@ -32,7 +32,7 @@ const InstructionalSections = () => {
 
         {/* Sección Pagos */}
         <div className="pt-20 border-t border-gray-100" id="pagos">
-          <h2 className="text-5xl md:text-6xl font-yanone text-[#1a2e44] mb-8 uppercase text-center">Medios de Pago</h2>
+          <h2 className="  text-[#1a2e44] mb-8  text-center">Medios de Pago</h2>
           <div className="bg-[#1a2e44] p-12 rounded-[40px] text-white relative overflow-hidden shadow-2xl">
             <div className="relative z-10">
               <p className="text-xl leading-relaxed mb-8 font-light text-gray-200">

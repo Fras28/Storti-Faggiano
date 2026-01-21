@@ -34,7 +34,7 @@ const NewsSection = () => {
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-            <span className="caption text-sf-teal uppercase tracking-widest mb-2 block">Actualidad</span>
+            <span className="caption text-sf-teal tracking-widest mb-2 block">Actualidad</span>
             <h2 className="text-gray-800">Últimas Noticias</h2>
         </div>
 

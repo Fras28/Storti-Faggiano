@@ -42,9 +42,9 @@ const ProducersBenefits = () => {
                 border-b border-gray-100 md:border-none last:border-none
               `}
             >
-              <h3 className="text-4xl font-yanone text-sf-dark mb-4 uppercase tracking-tight">
+              <h2 className="text-4xl  text-sf-dark mb-4  tracking-tight">
                 {item.title}
-              </h3>
+              </h2>
               <p className="text-sf-gray leading-relaxed text-base md:text-lg">
                 {item.desc}
               </p>

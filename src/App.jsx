@@ -12,6 +12,7 @@ import Contacto from './pages/Contacto';
 import Siniestros from './pages/Siniestros';
 import SiniestrosGuia from './pages/SiniestrosGuia';
 import DenunciaSiniestro from './pages/DenunciaSiniestro';
+import AboutUsVertical from './components/AboutUsVertical';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cotizar" element={<QuotePage />} />
+        <Route path="/servicios" element={<QuotePage />} />
         <Route path="/nosotros" element={<AboutUs />} />
         <Route path="/productores" element={<Productores />}/>
         <Route path="/productores/ingreso" element={<ProductoresIngreso />} /> {/* Nueva Ruta */}

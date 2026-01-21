@@ -19,10 +19,12 @@
   }
 
   h2 {
-    @apply font-merriweather font-normal;
+    @apply font-lato font-semibold;
     font-size: 48px;
+    line-height: 105%;
     letter-spacing: 1px;
   }
+
 
   h3 {
     @apply font-lato font-semibold;
@@ -35,6 +37,7 @@
     font-size: 16px;
     letter-spacing: 0.0031em; /* Esto equivale al 0.31% */
   }
+
 }
 
 @layer components {

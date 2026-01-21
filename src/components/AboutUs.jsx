@@ -84,7 +84,7 @@ const AboutUs = () => {
                 <p className="text-4xl md:text-5xl font-bold leading-none">
                   <Counter target="25" />
                 </p>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold mt-2 opacity-90">
+                <p className="text-[10px] md:text-xs  tracking-[0.2em] font-bold mt-2 opacity-90">
                   Años de Confianza
                 </p>
               </div>
@@ -95,7 +95,7 @@ const AboutUs = () => {
           {/* LADO DERECHO: TEXTO E INDICADORES */}
           <div className="w-full lg:w-[55%]">
             <header className="mb-12 text-left">
-              <span className="text-[#0095ff] font-extrabold text-[11px] uppercase tracking-[0.25em] mb-3 block">
+              <span className="text-[#0095ff] font-extrabold text-[11px]  tracking-[0.25em] mb-3 block">
                 Nuestra Trayectoria
               </span>
               <h2 className="text-3xl md:text-[38px] font-bold text-[#1a2b3c] font-serif mb-6 leading-[1.15]">
@@ -124,7 +124,7 @@ Nos enorgullecemos de nuestro enfoque personalizado, dedicamos tiempo a comprend
                   <h4 className="text-2xl md:text-3xl font-bold text-[#1a2b3c] mb-1">
                     <Counter target={stat.number} />
                   </h4>
-                  <p className="text-gray-400 text-[10px] md:text-xs uppercase tracking-widest font-bold">
+                  <p className="text-gray-400 text-[10px] md:text-xs  tracking-widest font-bold">
                     {stat.label}
                   </p>
                 </motion.div>

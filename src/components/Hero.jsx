@@ -62,7 +62,7 @@ const Hero = () => {
                     {slide.description}
                   </p>
                   <NavLink to={slide.link}>
-                    <button className="font-lato bg-sf-teal hover:brightness-110 text-white px-8 py-4 rounded-2xl transition-all shadow-lg active:scale-95 text-sm md:text-base font-bold uppercase tracking-wider">
+                    <button className="font-lato bg-sf-teal hover:brightness-110 text-white px-8 py-4 rounded-2xl transition-all shadow-lg active:scale-95   tracking-wider">
                       {slide.buttonText}
                     </button>
                   </NavLink>

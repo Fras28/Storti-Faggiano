@@ -20,7 +20,7 @@ const ClaimsSection = () => {
         {/* Lado Derecho: Contenido */}
         <div className="w-full md:w-1/2 space-y-6 md:space-y-8 text-center md:text-left">
           <div className="space-y-4">
-            <span className="text-gray-500 font-bold text-xs md:text-sm uppercase tracking-widest block">
+            <span className="text-gray-500 font-bold text-xs md:text-sm  tracking-widest block">
               ¿Tuviste un siniestro?
             </span>
             <h2 className="text-4xl md:text-6xl font-bold text-gray-800 font-serif leading-tight">

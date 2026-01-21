@@ -19,7 +19,7 @@ const QualityPolicy = () => {
 
         <div className="space-y-6 text-gray-700 mb-12">
           <p className="body">
-            La Organización Storti Faggiano es una empresa de servicios de seguros que tiene como visión la <span className="italic font-bold">"Excelencia en la gestión organizacional"</span>.
+            La Organización Storti Faggiano es una empresa de servicios de seguros que tiene como visión la <span className=" font-bold">"Excelencia en la gestión organizacional"</span>.
           </p>
           <p className="body">
             Su política de calidad está orientada al compromiso con la excelencia en la prestación de seguros y servicios para satisfacer las necesidades y expectativas de nuestros clientes.
@@ -38,7 +38,7 @@ const QualityPolicy = () => {
           ))}
         </ul>
 
-        <div className="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm italic text-gray-600 caption">
+        <div className="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm  text-gray-600 caption">
           Nuestro compromiso es cumplir con estos principios y trabajar para alcanzar la excelencia...
         </div>
       </div>
