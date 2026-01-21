@@ -1,7 +1,25 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Menu, X, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+// Se eliminaron Facebook, Instagram y Linkedin
+import { Menu, X, Phone, MapPin } from 'lucide-react';
 import Logo from "../assets/SFlogo.png"
+
+// Componente de Icono para mantener consistencia con Lucide
+const WhatsAppIcon = ({ size = 16, className = "" }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+  </svg>
+);
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,15 +55,16 @@ const Navbar = () => {
               <span className="caption">291 455-5555</span>
             </div>
           </div>
+          {/* Reemplazo de Redes Sociales por WhatsApp */}
           <div className="flex items-center gap-4">
-            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
-              <Facebook size={16} />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
-              <Instagram size={16} />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-[#72c0c9] transition-colors">
-              <Linkedin size={16} />
+            <a 
+              href="https://wa.me/5492914555555" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex items-center gap-2 text-gray-400 hover:text-[#72c0c9] transition-colors"
+            >
+              <span className="caption text-xs">Chat Empresas</span>
+              <WhatsAppIcon size={16} />
             </a>
           </div>
         </div>
@@ -57,7 +76,7 @@ const Navbar = () => {
           <img src={Logo} alt="Storti Faggiano" className="h-10 md:h-12 w-auto" />
         </NavLink>
 
-        {/* Desktop Links: Lato Regular 14px (Button 2) */}
+        {/* Desktop Links: Aplicando Button 2 (Lato Regular 14px 0.5%) */}
         <div className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <NavLink 
@@ -74,7 +93,7 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Desktop Actions: Lato Bold 14px (Button 1) */}
+        {/* Desktop Actions: Aplicando Button 1 (Lato Bold 14px 0.5%) */}
         <div className="hidden lg:flex items-center gap-3">
           <button 
             onClick={handleIngreso}
@@ -83,7 +102,7 @@ const Navbar = () => {
             INGRESO
           </button>
           <a 
-            href="https://wa.me/tu-numero" 
+            href="https://wa.me/5492914555555" 
             target="_blank" 
             rel="noopener noreferrer"
             className="button-1 bg-[#72c0c9] text-white px-5 py-2.5 rounded-xl hover:brightness-105 transition-all shadow-sm"
@@ -128,7 +147,7 @@ const Navbar = () => {
                 INGRESO
               </button>
               <a 
-                href="https://wa.me/tu-numero"
+                href="https://wa.me/5492914555555"
                 className="button-1 w-full bg-[#72c0c9] text-white py-4 rounded-xl text-center"
               >
                 WHATSAPP
