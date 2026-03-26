@@ -5,13 +5,13 @@ const ClaimsSection = () => {
   return (
     <section className="py-16 md:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 md:gap-20">
-        
+
         {/* Lado Izquierdo: Imagen */}
         <div className="w-full md:w-1/2">
           <div className="relative">
-            <img 
-              src={LaptopImage} 
-              alt="Realizá tu denuncia online" 
+            <img
+              src={LaptopImage}
+              alt="Realizá tu denuncia online"
               className="rounded-[2rem] shadow-2xl w-full object-cover aspect-video md:aspect-auto"
             />
           </div>
@@ -34,7 +34,10 @@ const ClaimsSection = () => {
           </p>
 
           <div className="pt-4">
-            <button className="bg-[#72C0C8] hover:bg-[#5dafb8] text-white px-8 py-4 rounded-2xl font-bold text-sm md:text-base flex items-center gap-3 transition-all mx-auto md:mx-0 group shadow-lg shadow-teal-100">
+            <button
+              onClick={() => window.location.href = "/siniestros/denuncia"}
+              className="bg-[#72C0C8] hover:bg-[#5dafb8] text-white px-8 py-4 rounded-2xl font-bold text-sm md:text-base flex items-center gap-3 transition-all mx-auto md:mx-0 group shadow-lg shadow-teal-100"
+            >
               DENUNCIAR SINIESTRO
               <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
             </button>

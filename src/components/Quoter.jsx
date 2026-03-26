@@ -35,7 +35,7 @@ const Quoter = () => {
 
   const handleWhatsApp = (type) => {
     const message = encodeURIComponent(`Hola! Me interesa obtener una cotización para un seguro de ${type}.`);
-    window.open(`https://wa.me/+54929141812735?text=${message}`, '_blank');
+    window.open(`https://wa.me/+5492914181273?text=${message}`, '_blank');
   };
 
   return (
