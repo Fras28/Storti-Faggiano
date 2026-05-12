@@ -7,13 +7,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // Importación de fotos (Asegúrate de que las rutas coincidan con tus archivos)
-import JorgeImg from "../../assets/nosotros/staff/Avatar.png";
-import FrancoImg from "../../assets/nosotros/staff/Avatar.png";
-import MaximoImg from "../../assets/nosotros/staff/Avatar.png";
-import SantiagoImg from "../../assets/nosotros/staff/Avatar.png";
-import CieloImg from "../../assets/nosotros/staff/Avatar.png";
-import LauraImg from "../../assets/nosotros/staff/Avatar.png";
-import FedericoImg from "../../assets/nosotros/staff/Avatar.png";
+import JorgeImg from "../../assets/nosotros/staff/Jorge.png";
+import FrancoImg from "../../assets/nosotros/staff/Franco.png";
+import MaximoImg from "../../assets/nosotros/staff/Maximo.png";
+import SantiagoImg from "../../assets/nosotros/staff/Santiago.png";
+import CieloImg from "../../assets/nosotros/staff/Cielo.png";
+import LauraImg from "../../assets/nosotros/staff/Laura.png";
+import JaunImg from "../../assets/nosotros/staff/Juan.png";
 
 const staffMembers = [
   {
@@ -53,10 +53,10 @@ const staffMembers = [
     image: LauraImg
   },
   {
-    name: "Scarpaci Federico",
-    role: "Área de Siniestros",
+    name: "Juan",
+    role: "Área Comercial",
     matricula: "",
-    image: FedericoImg
+    image: JaunImg
   }
 ];
 
