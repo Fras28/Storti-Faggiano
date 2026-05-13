@@ -1,111 +1,204 @@
 import React, { useState } from 'react';
-import { 
-  Car, HeartPulse, Home, Users, HardHat, Plane, 
-  Stethoscope, Truck, UserRound, Wrench, HandCoins, 
-  Building2, Tractor, Anchor, Settings, Umbrella, 
-  Flame, Building, Zap, Bird, Dog, ChevronDown, MessageCircle 
+import {
+  Car, UserRound, Home, Umbrella, Building2, ShieldCheck,
+  ChevronLeft, ChevronDown, CheckCircle2, MessageCircle,
+  Handshake, DollarSign
 } from 'lucide-react';
 
-const insuranceTypes = [
-  { id: 1, title: "Automotor", icon: <Car />, desc: "Protección total para tu vehículo.", details: "Coberturas contra terceros, todo riesgo, robo e incendio. Incluye asistencia mecánica las 24hs y extensión de cobertura en países limítrofes." },
-  { id: 2, title: "Salud", icon: <HeartPulse />, desc: "Tu bienestar y el de tu familia.", details: "Planes prestacionales de alta complejidad, consultas médicas, internación y descuentos en farmacias con las mejores cartillas del país." },
-  { id: 3, title: "Hogar", icon: <Home />, desc: "Tu casa, siempre protegida.", details: "Cobertura contra incendio, robo de contenido, daños por agua y cristales. Incluye servicios de urgencias de plomería, gas y electricidad." },
-  { id: 4, title: "Vida", icon: <Users />, desc: "Protección para tus seres queridos.", details: "Asegurá el futuro de tu familia ante cualquier imprevisto. Capital asegurable flexible y opciones de ahorro." },
-  { id: 5, title: "ART", icon: <HardHat />, desc: "Asegurá a tu personal.", details: "Cumplimiento de la Ley 24.557. Prevención de riesgos laborales y asistencia médica integral para tus trabajadores." },
-  { id: 6, title: "Viaje", icon: <Plane />, desc: "Cobertura global.", details: "Asistencia médica internacional, seguro por pérdida de equipaje y repatriación sanitaria para que viajes con total tranquilidad." },
-  { id: 7, title: "Praxis", icon: <Stethoscope />, desc: "Protege tu práctica profesional.", details: "Respaldo ante reclamos por responsabilidad profesional médica y de salud. Defensa legal y protección de patrimonio." },
-  { id: 8, title: "Transporte de Mercadería", icon: <Truck />, desc: "Carga segura en todo destino.", details: "Cobertura para mercaderías durante el tránsito terrestre, marítimo o aéreo ante choques, vuelcos, incendios o robos." },
-  { id: 9, title: "Accidentes personales", icon: <UserRound />, desc: "Protección ante imprevistos.", details: "Indemnización por fallecimiento o invalidez total/parcial permanente causada por accidentes ocurridos durante el trabajo o vida privada." },
-  { id: 10, title: "Responsabilidad Civil", icon: <Wrench />, desc: "Proteja su empresa.", details: "Cobertura ante reclamos de terceros por daños causados en el ejercicio de tu actividad comercial o profesional." },
-  { id: 11, title: "Caución", icon: <HandCoins />, desc: "Garantía de cumplimiento.", details: "Garantías contractuales, aduaneras y de alquileres. La forma más ágil de asegurar el cumplimiento de tus obligaciones." },
-  { id: 12, title: "Integral Comercio", icon: <Building2 />, desc: "Tu negocio bajo control.", details: "Seguro multiriesgo para locales comerciales: incendio, robo, responsabilidad civil y daños a la propiedad." },
-  { id: 13, title: "Agro", icon: <Tractor />, desc: "El mejor respaldo para tu cosecha.", details: "Seguros contra granizo, incendio y vientos fuertes. Multiriesgo agrícola adaptado a cada zona productiva." },
-  { id: 14, title: "Embarcaciones", icon: <Anchor />, desc: "Navegá con cobertura.", details: "Protección para lanchas, veleros y cruceros. Responsabilidad civil por colisión, auxilio y salvamento." },
-  { id: 15, title: "Técnico", icon: <Settings />, desc: "Activos industriales seguros.", details: "Cobertura para maquinaria pesada, equipos electrónicos y equipos de contratistas ante averías o daños externos." },
-  { id: 16, title: "Retiro", icon: <Umbrella />, desc: "Planeá tu futuro hoy.", details: "Seguro con capitalización para complementar tu jubilación. Flexibilidad en aportes y rentabilidad garantizada." },
-  { id: 17, title: "Fire", icon: <Flame />, desc: "Contra daños por incendios.", details: "Protección específica para edificios y contenidos ante la acción directa o indirecta del fuego, rayo o explosión." },
-  { id: 18, title: "Integral Consorcio", icon: <Building />, desc: "Seguro para condominios.", details: "Cobertura integral para edificios de departamentos y oficinas: partes comunes, RC ascensores e incendio." },
-  { id: 19, title: "Ecomovilidad", icon: <Zap />, desc: "Transporte sostenible.", details: "Seguro especializado para bicicletas, monopatines eléctricos y vehículos híbridos o eléctricos." },
-  { id: 20, title: "Sepelio", icon: <Bird />, desc: "Gastos cubiertos.", details: "Servicio prestacional o reintegro de gastos de sepelio para aliviar a la familia en momentos difíciles." },
-  { id: 21, title: "Mascotas", icon: <Dog />, desc: "Para tu compañero fiel.", details: "Cobertura de gastos veterinarios por accidentes, responsabilidad civil por daños y asistencia en caso de extravío." },
+// ── Datos Individuos ──────────────────────────────────────────────────────────
+const individuoMain = [
+  { id: 'automotor',  title: 'Automotor',           icon: Car },
+  { id: 'accidentes', title: 'Accidentes personales', icon: UserRound },
+  { id: 'hogar',      title: 'Hogar',                icon: Home },
+  { id: 'retiro',     title: 'Seguro de retiro',     icon: DollarSign },
 ];
 
-const Quoter = () => {
-  const [activeId, setActiveId] = useState(null);
+const individuoMore = [
+  'Asistencia al viajero',
+  'Incendio',
+  'Mascotas',
+  'Obligaciones patronales',
+  'Robo',
+  'Seguro de salud',
+  'Seguro técnico',
+  'Sepelio',
+  'Seguro de vida',
+  'Embarcaciones',
+  'Ecomovilidad',
+  'Aeronavegación',
+];
 
-  const handleWhatsApp = (type) => {
-    const message = encodeURIComponent(`Hola! Me interesa obtener una cotización para un seguro de ${type}.`);
-    window.open(`https://wa.me/+5492914181273?text=${message}`, '_blank');
+// ── Datos Empresas ────────────────────────────────────────────────────────────
+const empresaMain = [
+  { id: 'automotor',  title: 'Automotor',            icon: Car },
+  { id: 'accidentes', title: 'Accidentes personales', icon: UserRound },
+  { id: 'integral',   title: 'Integral comercio',    icon: Building2 },
+  { id: 'rc',         title: 'Responsabilidad Civil', icon: ShieldCheck },
+];
+
+const empresaMore = [
+  'Agro',
+  'ART',
+  'Caución',
+  'Incendio',
+  'Integral Comercio',
+  'Obligaciones Patronales',
+  'Praxis',
+  'Riesgos Cibernéticos',
+  'Robo',
+  'Seguro Técnico',
+  'Todo Riesgo Operativo',
+  'Transporte de Mercadería',
+  'Vida Colectivo',
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+const Quoter = () => {
+  const [clientType, setClientType] = useState(null); // null | 'individuo' | 'empresa'
+  const [showMore, setShowMore] = useState(false);
+
+  const mainCards  = clientType === 'individuo' ? individuoMain : empresaMain;
+  const moreItems  = clientType === 'individuo' ? individuoMore : empresaMore;
+  const ctaLabel   = clientType === 'individuo' ? 'CONTACTAR CON UN ASESOR' : 'QUIERO COTIZAR ESTO';
+  const typeLabel  = clientType === 'individuo' ? 'Individuos' : 'Empresas y Pymes';
+  const subtitle   = clientType
+    ? 'Compare los precios de nuestros aseguradores en calidad de seguros.'
+    : 'Seleccioná el perfil para ver las opciones disponibles.';
+
+  const handleWhatsApp = (product) => {
+    const msg = encodeURIComponent(
+      `Hola! Me interesa obtener una cotización para: ${product} (${typeLabel}).`
+    );
+    window.open(`https://wa.me/+5492914181273?text=${msg}`, '_blank');
+  };
+
+  const handleCTA = () => {
+    const msg = encodeURIComponent(
+      `Hola! Quisiera cotizar un seguro como ${typeLabel}.`
+    );
+    window.open(`https://wa.me/+5492914181273?text=${msg}`, '_blank');
+  };
+
+  const handleSelect = (type) => {
+    setClientType(type);
+    setShowMore(false);
   };
 
   return (
     <div className="py-12 md:py-24 bg-[#fcfdfe] px-4 md:px-6">
-      <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20">
-      <h2 className="text-4xl md:text-6xl text-gray-800 mb-4 break-words md:whitespace-nowrap">
-  ¿Qué le gustaría asegurar hoy?
-</h2>
-        <div className="w-16 h-1 bg-teal-500 mx-auto mb-6"></div>
+
+      {/* Encabezado */}
+      <div className="max-w-4xl mx-auto text-center mb-10 md:mb-16">
+        <h2 className="text-4xl md:text-6xl text-gray-800 mb-4 break-words">
+          ¿Qué le gustaría asegurar hoy?
+        </h2>
+        <div className="w-16 h-1 bg-teal-500 mx-auto mb-6" />
         <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto">
-          Seleccioná el tipo de cobertura que necesitás y ponete en contacto con nuestros asesores.
+          {subtitle}
         </p>
       </div>
 
-      {/* Grid con items-start para que no se estiren todos a la misma altura */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-        {insuranceTypes.map((item) => (
-          <div 
-            key={item.id}
-            className={`group bg-white rounded-[2rem] border transition-all duration-500 cursor-pointer flex flex-col relative ${
-              activeId === item.id 
-                ? 'border-teal-500 shadow-2xl ring-1 ring-teal-500/10 z-20' 
-                : 'border-gray-100 shadow-sm hover:shadow-lg hover:border-gray-200'
-            }`}
-            onClick={() => setActiveId(activeId === item.id ? null : item.id)}
+      {/* ── PASO 1: Elegir tipo de cliente ─────────────────────────────────── */}
+      {!clientType && (
+        <div className="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+          {/* Individuo */}
+          <button
+            onClick={() => handleSelect('individuo')}
+            className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl hover:border-teal-300 hover:-translate-y-1 transition-all duration-300 p-12 flex flex-col items-center gap-5 group"
           >
-            <div className="p-8 md:p-10 flex flex-col items-center text-center">
-              <div className={`mb-6 transition-all duration-500 ${
-                activeId === item.id ? 'text-teal-500 scale-110' : 'text-gray-800 group-hover:text-teal-600'
-              }`}>
-                {React.cloneElement(item.icon, { size: 48 })}
-              </div>
-              
-              <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 leading-tight">
-                {item.title}
-              </h3>
-              <p className="text-xs md:text-sm text-gray-400 font-medium  tracking-widest mb-4">
-                {item.desc}
-              </p>
+            <UserRound size={52} className="text-gray-300 group-hover:text-teal-500 transition-colors duration-300" />
+            <span className="text-xl font-bold text-gray-700">Individuo</span>
+          </button>
 
-              <div className={`text-gray-300 transition-transform duration-500 ${activeId === item.id ? 'rotate-180 text-teal-500' : ''}`}>
-                <ChevronDown size={20} />
-              </div>
-            </div>
+          {/* Empresas */}
+          <button
+            onClick={() => handleSelect('empresa')}
+            className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl hover:border-teal-300 hover:-translate-y-1 transition-all duration-300 p-12 flex flex-col items-center gap-5 group"
+          >
+            <Building2 size={52} className="text-gray-300 group-hover:text-teal-500 transition-colors duration-300" />
+            <span className="text-xl font-bold text-gray-700 text-center leading-snug">
+              Empresas, Pymes,<br />Comercios y Autónomos
+            </span>
+          </button>
 
-            {/* PANEL DESPLEGABLE */}
-            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              activeId === item.id ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-            }`}>
-              <div className="px-8 pb-8 text-center">
-                <div className="w-full h-px bg-gray-100 mb-6 mx-auto"></div>
-                <p className="text-sm md:text-base text-gray-600 mb-8 leading-relaxed ">
-                  "{item.details}"
-                </p>
-                
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleWhatsApp(item.title);
-                  }}
-                  className="w-full bg-[#78cad3] hover:bg-[#007acc] text-white py-4 rounded-2xl font-bold text-sm tracking-widest flex items-center justify-center gap-3 transition-all shadow-lg active:scale-95 "
-                >
-                  <MessageCircle size={18} />
-                  Contactar Asesor
-                </button>
-              </div>
-            </div>
+        </div>
+      )}
+
+      {/* ── PASO 2: Productos del tipo seleccionado ─────────────────────────── */}
+      {clientType && (
+        <div className="max-w-3xl mx-auto animate-in fade-in duration-500">
+
+          {/* Botón volver */}
+          <button
+            onClick={() => handleSelect(null)}
+            className="flex items-center gap-2 text-gray-400 hover:text-teal-500 mb-10 text-[10px] tracking-[0.2em] uppercase transition-colors"
+          >
+            <ChevronLeft size={14} /> Volver
+          </button>
+
+          {/* Cards principales */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {mainCards.map(({ id, title, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => handleWhatsApp(title)}
+                className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-lg hover:border-teal-300 hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-center gap-4 group"
+              >
+                <Icon size={38} className="text-gray-300 group-hover:text-teal-500 transition-colors duration-300" />
+                <span className="text-xs font-semibold text-gray-600 text-center leading-snug">{title}</span>
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
+
+          {/* Botón MÁS OPCIONES */}
+          {!showMore && (
+            <div className="text-center mb-6">
+              <button
+                onClick={() => setShowMore(true)}
+                className="bg-[#78cad3] hover:bg-[#5eb0b9] text-white px-8 py-3 rounded-2xl font-bold text-[10px] tracking-[0.18em] uppercase transition-all flex items-center gap-2 mx-auto shadow"
+              >
+                MÁS OPCIONES <ChevronDown size={14} />
+              </button>
+            </div>
+          )}
+
+          {/* Lista extendida */}
+          {showMore && (
+            <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-8 mb-6 animate-in fade-in duration-500">
+              <ul className="space-y-2">
+                {moreItems.map((item) => (
+                  <li key={item}>
+                    <button
+                      onClick={() => handleWhatsApp(item)}
+                      className="w-full flex items-center gap-3 text-gray-600 text-sm px-4 py-3 rounded-2xl hover:bg-teal-50 hover:text-teal-600 transition-all group text-left"
+                    >
+                      <CheckCircle2 size={16} className="text-teal-400 group-hover:text-teal-500 flex-shrink-0 transition-colors" />
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* CTA WhatsApp (aparece con la lista extendida) */}
+          {showMore && (
+            <div className="text-center animate-in fade-in duration-500">
+              <button
+                onClick={handleCTA}
+                className="bg-[#78cad3] hover:bg-[#5eb0b9] text-white px-10 py-4 rounded-2xl font-bold text-[10px] tracking-[0.18em] uppercase transition-all flex items-center gap-3 mx-auto shadow-lg"
+              >
+                <MessageCircle size={16} />
+                {ctaLabel}
+              </button>
+            </div>
+          )}
+
+        </div>
+      )}
+
     </div>
   );
 };

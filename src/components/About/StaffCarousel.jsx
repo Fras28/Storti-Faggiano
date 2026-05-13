@@ -36,7 +36,7 @@ const staffMembers = [
   },
   {
     name: "Santiago Tomassini",
-    role: "Gerente Comercial",
+    role: "Area de siniestros",
     matricula: "",
     image: SantiagoImg
   },
@@ -48,12 +48,12 @@ const staffMembers = [
   },
   {
     name: "María Laura Miglioli",
-    role: "Cobranzas",
+    role: "Area de cobranzas",
     matricula: "",
     image: LauraImg
   },
   {
-    name: "Juan",
+    name: "Juan Manuel Ruiz",
     role: "Área Comercial",
     matricula: "",
     image: JaunImg
@@ -64,7 +64,7 @@ const StaffCarousel = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-center mb-16">Staff de Productores</h2>
+        <h2 className="text-center mb-16">Nosotros</h2>
         <Swiper
           modules={[Pagination, Autoplay]}
           spaceBetween={30}

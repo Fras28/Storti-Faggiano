@@ -9,7 +9,7 @@ import QualityPolicy from '../components/About/QualityPolicy';
 
 const AboutUs = () => {
   return (
-    <main className="pt-20">
+    <main >
       <AboutHero />
       <OurValues />
       <OurTeam />

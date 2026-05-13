@@ -46,18 +46,10 @@ const DenunciaSiniestro = () => {
     ciudad: '',
     fechaSiniestro: '',
     horaSiniestro: '',
-    fotosVehiculo: [],
-    fotosLicencia: [],
-    fotosTarjetaVerde: [],
-    fotosDni: []
+    fotos: []
   });
 
-  const [previews, setPreviews] = useState({
-    vehiculo: [],
-    licencia: [],
-    tarjetaVerde: [],
-    dni: []
-  });
+  const [previews, setPreviews] = useState([]);
 
   const uploadToCloudinary = async (file) => {
     const data = new FormData();
@@ -112,39 +104,29 @@ const DenunciaSiniestro = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const fotoKeyToPreviewKey = { fotosVehiculo: 'vehiculo', fotosLicencia: 'licencia', fotosTarjetaVerde: 'tarjetaVerde', fotosDni: 'dni' };
-
-  const handleFileChange = (e, fotoKey) => {
+  const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const previewKey = fotoKeyToPreviewKey[fotoKey];
-    setFormData(prev => ({ ...prev, [fotoKey]: [...prev[fotoKey], ...files] }));
+    if (formData.fotos.length + files.length > 6) {
+      alert("Puedes subir un máximo de 6 fotos.");
+      return;
+    }
+    setFormData(prev => ({ ...prev, fotos: [...prev.fotos, ...files] }));
     const newPreviews = files.map(file => URL.createObjectURL(file));
-    setPreviews(prev => ({ ...prev, [previewKey]: [...prev[previewKey], ...newPreviews] }));
+    setPreviews(prev => [...prev, ...newPreviews]);
   };
 
-  const removeImage = (fotoKey, index) => {
-    const previewKey = fotoKeyToPreviewKey[fotoKey];
-    setPreviews(prev => ({ ...prev, [previewKey]: prev[previewKey].filter((_, i) => i !== index) }));
-    setFormData(prev => ({ ...prev, [fotoKey]: prev[fotoKey].filter((_, i) => i !== index) }));
+  const removeImage = (index) => {
+    setPreviews(prev => prev.filter((_, i) => i !== index));
+    setFormData(prev => ({ ...prev, fotos: prev.fotos.filter((_, i) => i !== index) }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
     try {
-      // Subida de imágenes a Cloudinary (4 categorías)
-      const uploadSection = async (files, label) => {
-        if (!files || files.length === 0) return '';
-        const urls = await Promise.all(files.map(f => uploadToCloudinary(f)));
-        return label + ':\n' + urls.join('\n');
-      };
-      const fotosResults = await Promise.all([
-        uploadSection(formData.fotosVehiculo, 'Vehículo asegurado'),
-        uploadSection(formData.fotosLicencia, 'Licencia de conducir'),
-        uploadSection(formData.fotosTarjetaVerde, 'Tarjeta verde'),
-        uploadSection(formData.fotosDni, 'DNI'),
-      ]);
-      const photoLinksText = fotosResults.filter(Boolean).join('\n\n');
+      // Subida de imágenes a Cloudinary
+      const imageUrls = await Promise.all(formData.fotos.map(foto => uploadToCloudinary(foto)));
+      const photoLinksText = imageUrls.join('\n');
 
       const templateParams = {
         // ... todos tus parámetros de emailjs que ya tienes
@@ -436,47 +418,40 @@ const DenunciaSiniestro = () => {
 
           {/* PASO 11: FOTOS */}
           {step === 11 && (
-            <div className="space-y-6 animate-in fade-in duration-500">
-              <div className="text-center mb-2">
-                <h2 className="text-3xl font-serif text-gray-800">Fotos del siniestro</h2>
-                <p className="text-gray-400 text-sm mt-2">Adjunte las fotos correspondientes a cada sección.</p>
+            <div className="space-y-8 animate-in fade-in duration-500">
+              <h2 className="text-3xl font-serif text-gray-800 text-center">Fotos del siniestro</h2>
+
+              <div className="border-4 border-dashed border-gray-100 rounded-[3rem] p-12 flex flex-col items-center bg-white min-h-[350px] justify-center text-center">
+                {previews.length === 0 ? (
+                  <>
+                    <Camera size={64} className="text-gray-100 mb-6" />
+                    <p className="text-gray-400 font-medium text-lg">Sube fotos de los daños, patentes y documentos</p>
+                  </>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full mb-8">
+                    {previews.map((src, i) => (
+                      <div key={i} className="relative group aspect-square rounded-[2rem] overflow-hidden shadow-lg border border-white">
+                        <img src={src} alt="preview" className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => removeImage(i)}
+                          className="absolute top-3 right-3 bg-red-500 text-white rounded-full p-2 shadow-xl hover:scale-110 transition-transform"
+                        >
+                          <XCircle size={20} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <label className="cursor-pointer bg-gray-800 text-white px-10 py-4 rounded-2xl font-bold tracking-widest hover:bg-black transition-all shadow-lg mt-4 inline-block">
+                  {previews.length === 0 ? "SELECCIONAR ARCHIVOS" : "AGREGAR MÁS FOTOS"}
+                  <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+                </label>
               </div>
 
-              {[
-                { fotoKey: 'fotosVehiculo',    previewKey: 'vehiculo',     label: 'Fotos del vehículo asegurado' },
-                { fotoKey: 'fotosLicencia',    previewKey: 'licencia',     label: 'Licencia de conducir del conductor (frente y dorso)' },
-                { fotoKey: 'fotosTarjetaVerde',previewKey: 'tarjetaVerde', label: 'Tarjeta verde (frente y dorso)' },
-                { fotoKey: 'fotosDni',         previewKey: 'dni',          label: 'DNI (frente y dorso)' },
-              ].map(({ fotoKey, previewKey, label }) => (
-                <div key={fotoKey} className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100">
-                  <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-5">{label}</h3>
-
-                  {previews[previewKey].length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-5">
-                      {previews[previewKey].map((src, i) => (
-                        <div key={i} className="relative aspect-square rounded-2xl overflow-hidden shadow border border-white group">
-                          <img src={src} alt="preview" className="w-full h-full object-cover" />
-                          <button
-                            type="button"
-                            onClick={() => removeImage(fotoKey, i)}
-                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1.5 shadow-lg hover:scale-110 transition-transform"
-                          >
-                            <XCircle size={16} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  <label className="cursor-pointer inline-flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-2xl font-bold text-xs tracking-widest hover:bg-black transition-all shadow">
-                    <Camera size={14} />
-                    {previews[previewKey].length === 0 ? 'SELECCIONAR FOTOS' : 'AGREGAR MÁS'}
-                    <input type="file" multiple accept="image/*" onChange={(e) => handleFileChange(e, fotoKey)} className="hidden" />
-                  </label>
-                </div>
-              ))}
-
-              <div className="flex justify-end pt-4">
+              <div className="flex justify-end pt-8">
+                {/* CAMBIO CLAVE: Ahora el botón usa nextStep en lugar de disparar el submit */}
                 <button
                   type="button"
                   onClick={nextStep}
@@ -521,21 +496,16 @@ const DenunciaSiniestro = () => {
                   </div>
                 </div>
 
-                {[
-                  { previewKey: 'vehiculo',     label: 'Vehículo asegurado' },
-                  { previewKey: 'licencia',     label: 'Licencia de conducir' },
-                  { previewKey: 'tarjetaVerde', label: 'Tarjeta verde' },
-                  { previewKey: 'dni',          label: 'DNI' },
-                ].filter(s => previews[s.previewKey].length > 0).map(({ previewKey, label }) => (
-                  <div key={previewKey}>
-                    <h4 className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2">{label}</h4>
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      {previews[previewKey].map((src, i) => (
+                {previews.length > 0 && (
+                  <div>
+                    <h4 className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-3">Fotos del vehículo (Max. 6)</h4>
+                    <div className="grid grid-cols-3 gap-2">
+                      {previews.map((src, i) => (
                         <img key={i} src={src} alt="resumen" className="w-full h-24 object-cover rounded-2xl shadow-sm" />
                       ))}
                     </div>
                   </div>
-                ))}
+                )}
 
                 <div className="flex justify-end pt-6">
                   <button

@@ -31,7 +31,7 @@ const Siniestros = () => {
       description: "Todo lo que necesitás saber para manejar la situación sin estrés y con el respaldo de nuestro equipo.",
       buttonText: "VER GUÍA DE PASOS",
       image: Siniestro2,
-      link: "/siniestros/guia"
+      link: "/datos-utiles"
     },
   ];
 
