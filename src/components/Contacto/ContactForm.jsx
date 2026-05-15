@@ -46,21 +46,25 @@ const ContactForm = () => {
               <div className="bg-sf-teal/10 p-4 rounded-2xl text-sf-teal"><Phone /></div>
               <div>
                 <p className="text-sm text-gray-400 font-bold uppercase tracking-wider">Llamanos</p>
-                <p className="text-xl font-bold text-[#1a2e44]">+54 291 4553332</p>
+                <p className="text-xl font-bold text-[#1a2e44]">+54 9 2915 36-3400</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
               <div className="bg-sf-teal/10 p-4 rounded-2xl text-sf-teal"><Mail /></div>
               <div>
                 <p className="text-sm text-gray-400 font-bold uppercase tracking-wider">Email</p>
-                <p className="text-xl font-bold text-[#1a2e44]">info@sfasesores.com.ar</p>
+                <p className="text-xl font-bold text-[#1a2e44]">info.sfasesores@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
               <div className="bg-sf-teal/10 p-4 rounded-2xl text-sf-teal"><MapPin /></div>
               <div>
                 <p className="text-sm text-gray-400 font-bold uppercase tracking-wider">Oficina</p>
-                <p className="text-xl font-bold text-[#1a2e44]">Santa Fe 102, Bahía Blanca</p>
+                <p className="text-xl font-bold text-[#1a2e44]">Bahía Blanca<br/> Santa Fe 102</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-400 font-bold uppercase tracking-wider">Horarios de atención</p>
+                <p className="text-xl font-bold text-[#1a2e44]">lunes a viernes <br/> de 8 a 16 hs</p>
               </div>
             </div>
           </div>

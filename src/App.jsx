@@ -12,6 +12,7 @@ import Contacto from './pages/Contacto';
 import Siniestros from './pages/Siniestros';
 import SiniestrosGuia from './pages/SiniestrosGuia';
 import DenunciaSiniestro from './pages/DenunciaSiniestro';
+import PortalPagos from './pages/PortalPagos';
 import AboutUsVertical from './components/AboutUsVertical';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/siniestros/guia" element={<SiniestrosGuia />} />
         <Route path="/siniestros/denuncia" element={<DenunciaSiniestro />} />
         <Route path="/datos-utiles" element={<DatosUtiles />} />
+        <Route path="/portal-de-pagos" element={<PortalPagos />} />
         <Route path="/contacto" element={<Contacto />} /> 
       </Routes>
       <Footer />
