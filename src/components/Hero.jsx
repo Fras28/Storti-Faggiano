@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Car, Plus, Phone, Download } from 'lucide-re
 import { NavLink } from 'react-router-dom';
 
 import Asesoramiento from "../assets/Hero/asesoramiento.png"
+import Asesoramiento2 from "../assets/Hero/asesoramiento2.jpeg"
 import Siniestro from "../assets/Hero/siniestro.png"
 
 import 'swiper/css';
