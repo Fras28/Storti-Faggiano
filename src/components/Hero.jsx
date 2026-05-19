@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Car, Plus, Phone, Download } from 'lucide-re
 import { NavLink } from 'react-router-dom';
 
 import Asesoramiento from "../assets/Hero/asesoramiento.png"
+import Asesoramiento2 from "../assets/Hero/asesoramiento2.jpeg"
 import Siniestro from "../assets/Hero/siniestro.png"
 
 import 'swiper/css';
@@ -84,8 +85,8 @@ const Hero = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <ServiceCard icon={<Car size={24} />} title="Denuncia un Siniestro" desc="Presente su reclamación por accidente en línea de forma rápida." />
           <ServiceCard icon={<Plus size={24} />} title="Qué hacer en caso de accidente" desc="Guía paso a paso para gestionar su siniestro sin demoras." />
-          <ServiceCard icon={<Phone size={24} />} title="Números de emergencia" desc="Acceso rápido a todos los números de contacto 24hs." />
-          <ServiceCard icon={<Download size={24} />} title="Descargar documentación" desc="Acceda a sus documentos y formularios de seguro." />
+          <ServiceCard icon={<Phone size={24} />} title="Números de emergencia/Grua" desc="Acceso rápido a todos los números de contacto 24hs." />
+          <ServiceCard icon={<Download size={24} />} title="Pague su poliza en linea" desc="ir al portal de pagos" />
         </div>
       </section>
     </div>

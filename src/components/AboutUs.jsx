@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ShieldCheck, Users, Award, CheckSquare } from 'lucide-react';
-import AboutImg from "../assets/Hero/asesoramiento.png"; 
+import AboutImg from "../assets/Hero/asesoramiento2.jpeg"; 
 
 // Sub-componente para la animación numérica
 const Counter = ({ target, duration = 2 }) => {

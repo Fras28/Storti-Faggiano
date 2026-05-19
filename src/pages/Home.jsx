@@ -15,7 +15,7 @@ const Home = () => {
     <main className="min-h-screen bg-white overflow-x-hidden"> 
       {/* overflow-x-hidden es la clave: corta cualquier cosa que quiera salirse de lado */}
       <Hero />
-      <PaymentMethods/>
+      {/* <PaymentMethods/> */}
       <AboutUsVertical/>
       <ProductsSection/>
       <PaymentSection/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Users, Award, CheckSquare, CheckCircle2 } from 'lucide-react';
-import AboutImg from "../assets/Hero/asesoramiento.png";
+import AboutImg from "../assets/Hero/asesoramiento2.jpeg";
 
 const stats = [
     { icon: <ShieldCheck size={32} />, number: "25+", label: "Años de experiencia" },

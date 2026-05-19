@@ -31,6 +31,7 @@ const Navbar = () => {
     { name: 'SINIESTROS', path: '/siniestros' },
     { name: 'SERVICIOS', path: '/servicios' },
     { name: 'DATOS ÚTILES', path: '/datos-utiles' },
+    { name: 'PORTAL DE PAGOS', path: '/portal-de-pagos' },
     // { name: 'BLOG', path: '/blog' },
     { name: 'CONTACTO', path: '/contacto' },
   ];
