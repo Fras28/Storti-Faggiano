@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Car, UserRound, Home, Umbrella, Building2, ShieldCheck,
   ChevronLeft, ChevronDown, CheckCircle2, MessageCircle,
-  Handshake, DollarSign
+  Handshake, PiggyBank
 } from 'lucide-react';
 
 // ── Datos Individuos ──────────────────────────────────────────────────────────
@@ -10,7 +10,7 @@ const individuoMain = [
   { id: 'automotor',  title: 'Automotor',           icon: Car },
   { id: 'accidentes', title: 'Accidentes personales', icon: UserRound },
   { id: 'hogar',      title: 'Hogar',                icon: Home },
-  { id: 'retiro',     title: 'Seguro de retiro',     icon: DollarSign },
+  { id: 'retiro',     title: 'Seguro de retiro',     icon: PiggyBank },
 ];
 
 const individuoMore = [

@@ -3,7 +3,7 @@ import { MessageSquare, Phone, Truck, ShieldAlert } from 'lucide-react';
 
 const emergencyData = [
   {
-    category: "URGENCIAS WHATSAPP",
+    category: "WHATSAPP OFICINA",
     contacts: [
       { label: "Línea 1", value: "+54 9 291 4029635", link: "https://wa.me/5492914029635" },
       { label: "Línea 2", value: "+54 9 291 4029634", link: "https://wa.me/5492914029634" }
@@ -14,7 +14,9 @@ const emergencyData = [
     category: "COMPAÑÍAS (0800)",
     contacts: [
       { label: "Cooperación Seguros", value: "0800 777 7070", link: "tel:08007777070" },
-      { label: "Sancor Seguros", value: "0800 777 4643", link: "tel:08007774643" }
+      { label: "Sancor Seguros", value: "0800 777 4643", link: "tel:08007774643" },
+      { label: "Federación Patronal ART", value: "0800 222 2322", link: "tel:08002222322" },
+      { label: "Prevención ART", value: "0800 444 4278", link: "tel:08004444278" }
     ],
     icon: <Phone />, color: "bg-blue-50 text-blue-600"
   },
