@@ -34,8 +34,8 @@ const protocoloSteps = [
   {
     icon: <Phone size={22} />,
     title: "Centro de atención permanente",
-    desc: "En caso de emergencias y denuncias, llamá al centro de atención permanente.",
-    highlight: "0800 222 2322",
+    desc: "En caso de emergencias y denuncias, llamá al centro de atención permanente de tu compañía. Encontrá los números en los recursos por compañía.",
+    highlight: null,
   },
 ];
 
@@ -43,6 +43,9 @@ const artCompanies = [
   {
     name: "Federación Patronal",
     logo: FedPatLogo,
+    phones: [
+      { label: "Denuncia y/o Emergencia", number: "0800-222-2322" },
+    ],
     actions: [
       {
         label: "Descargar formulario de denuncia",
@@ -65,6 +68,10 @@ const artCompanies = [
   {
     name: "Prevención ART",
     logo: null,
+    phones: [
+      { label: "Emergencia", number: "0800-444-4278" },
+      { label: "Denuncia", note: "El empleador debe realizarla a través del sistema de la compañía." },
+    ],
     actions: [
       {
         label: "¿Qué hacer en caso de accidente?",
@@ -92,8 +99,85 @@ const ArtInstructions = () => {
         ¿Qué hacer en caso de accidente laboral (ART)?
       </h2>
       <p className="text-gray-500 text-lg mb-12">
-        Sabemos que un accidente laboral requiere acciones específicas. Seguí este protocolo para garantizar la cobertura.
+        Si tuviste un accidente laboral tenés que hacer la denuncia correspondiente y comunicarte con tu compañía para que te indique los pasos a seguir.
       </p>
+
+      {/* Compañías ART */}
+      <div className="space-y-6 mb-16">
+        <h3 className="text-[#1a2e44] font-semibold text-lg">Recursos por compañía</h3>
+        {artCompanies.map((company, i) => (
+          <div key={i} className="bg-gray-50 rounded-[2rem] border border-gray-100 p-8">
+            {/* Header compañía */}
+            <div className="flex items-center gap-4 mb-6">
+              {company.logo ? (
+                <img src={company.logo} alt={company.name} className="h-10 object-contain" />
+              ) : (
+                <div className="h-10 flex items-center">
+                  <span className="text-[#1a2e44] font-bold text-lg">{company.name}</span>
+                </div>
+              )}
+              {company.logo && (
+                <span className="text-[#1a2e44] font-semibold text-base">{company.name}</span>
+              )}
+            </div>
+
+            {/* Teléfonos de denuncia y emergencia */}
+            {company.phones && (
+              <div className="flex flex-wrap gap-3 mb-6">
+                {company.phones.map((phone, j) => (
+                  <div key={j} className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm">
+                    <div className="bg-[#72c0c9]/15 text-[#2a6f7a] p-2.5 rounded-xl flex-shrink-0">
+                      <Phone size={16} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{phone.label}</p>
+                      {phone.number ? (
+                        <a href={`tel:${phone.number.replace(/-/g, '')}`} className="text-[#1a2e44] font-bold text-base hover:text-[#72c0c9] transition-colors">
+                          {phone.number}
+                        </a>
+                      ) : (
+                        <p className="text-gray-600 text-sm max-w-xs leading-snug">{phone.note}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Botones de acción */}
+            <div className="flex flex-wrap gap-3">
+              {company.actions.map((action, j) => (
+                <a
+                  key={j}
+                  href={action.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-white border border-gray-200 text-[#1a2e44] hover:bg-[#72c0c9] hover:text-white hover:border-[#72c0c9] px-6 py-4 rounded-2xl text-sm font-semibold tracking-wide transition-all shadow-sm"
+                >
+                  {action.icon}
+                  {action.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Extra (Prevenet) */}
+            {company.extra && (
+              <div className="mt-5 pt-5 border-t border-gray-200 flex items-center justify-between gap-4 flex-wrap">
+                <p className="text-gray-500 text-sm">{company.extra.label}</p>
+                <a
+                  href={company.extra.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#72c0c9] font-semibold text-sm hover:underline flex-shrink-0"
+                >
+                  <ExternalLink size={14} />
+                  {company.extra.linkLabel}
+                </a>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
 
@@ -142,59 +226,6 @@ const ArtInstructions = () => {
         </div>
       </div>
 
-      {/* Compañías ART */}
-      <div className="space-y-6">
-        <h3 className="text-[#1a2e44] font-semibold text-lg">Recursos por compañía</h3>
-        {artCompanies.map((company, i) => (
-          <div key={i} className="bg-gray-50 rounded-[2rem] border border-gray-100 p-8">
-            {/* Header compañía */}
-            <div className="flex items-center gap-4 mb-6">
-              {company.logo ? (
-                <img src={company.logo} alt={company.name} className="h-10 object-contain" />
-              ) : (
-                <div className="h-10 flex items-center">
-                  <span className="text-[#1a2e44] font-bold text-lg">{company.name}</span>
-                </div>
-              )}
-              {company.logo && (
-                <span className="text-[#1a2e44] font-semibold text-base">{company.name}</span>
-              )}
-            </div>
-
-            {/* Botones de acción */}
-            <div className="flex flex-wrap gap-3">
-              {company.actions.map((action, j) => (
-                <a
-                  key={j}
-                  href={action.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white border border-gray-200 text-[#1a2e44] hover:bg-[#72c0c9] hover:text-white hover:border-[#72c0c9] px-5 py-3 rounded-2xl text-xs font-semibold tracking-wide transition-all shadow-sm"
-                >
-                  {action.icon}
-                  {action.label}
-                </a>
-              ))}
-            </div>
-
-            {/* Extra (Prevenet) */}
-            {company.extra && (
-              <div className="mt-5 pt-5 border-t border-gray-200 flex items-center justify-between gap-4 flex-wrap">
-                <p className="text-gray-500 text-sm">{company.extra.label}</p>
-                <a
-                  href={company.extra.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#72c0c9] font-semibold text-sm hover:underline flex-shrink-0"
-                >
-                  <ExternalLink size={14} />
-                  {company.extra.linkLabel}
-                </a>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
     </section>
   );
 };

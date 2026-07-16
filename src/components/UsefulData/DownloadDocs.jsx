@@ -10,7 +10,6 @@ import Cooperacion from "../../assets/datos-utiles/Cooperación-Seguros.png";
 import ProvART from "../../assets/datos-utiles/Provincia-ART.png";
 import CNP from "../../assets/datos-utiles/CNP-Seguros.png";
 import ProvSeg from "../../assets/datos-utiles/Provincia-Seguros.png";
-import SanCris from "../../assets/datos-utiles/San-Cristobal.png";
 import DocBg from "../../assets/datos-utiles/Documentacion-bg.jpg";
 
 import 'swiper/css';
@@ -23,7 +22,6 @@ const companies = [
   { name: "Provincia ART", logo: ProvART, link: "#" },
   { name: "CNP Seguros", logo: CNP , link: "#" },
   { name: "Provincia Seguros", logo: ProvSeg, link: "#" },
-  { name: "San Cristóbal", logo: SanCris, link: "#" },
 ];
 
 const DownloadDocs = () => {

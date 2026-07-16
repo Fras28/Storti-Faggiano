@@ -1,5 +1,16 @@
+import { Link } from 'react-router-dom';
 import { FaInstagram, FaWhatsapp, FaFacebookF } from 'react-icons/fa';
 import Logo from "../assets/SFlogo.png";
+
+const sectionLinks = [
+  { label: 'Nosotros', to: '/nosotros' },
+  { label: 'Productores', to: '/productores' },
+  { label: 'Siniestros', to: '/siniestros' },
+  { label: 'Servicios', to: '/servicios' },
+  { label: 'Datos útiles', to: '/datos-utiles' },
+  { label: 'Portal de pagos', to: '/portal-de-pagos' },
+  { label: 'Contacto', to: '/contacto' },
+];
 
 const Footer = () => {
   return (
@@ -45,12 +56,14 @@ const Footer = () => {
             Secciones
           </h3>
           <ul className="grid grid-cols-2 md:grid-cols-1 gap-4 text-sm md:text-[15px] text-gray-400">
-            {['Nosotros', 'Productores', 'Siniestros', 'Servicios', 'Blog', 'Datos útiles', 'Contacto'].map((link) => (
-              <li 
-                key={link} 
-                className="hover:text-white cursor-pointer w-fit mx-auto md:mx-0 border-b border-transparent hover:border-[#0095ff] transition-all"
-              >
-                {link}
+            {sectionLinks.map((link) => (
+              <li key={link.label} className="w-fit mx-auto md:mx-0">
+                <Link
+                  to={link.to}
+                  className="hover:text-white border-b border-transparent hover:border-[#0095ff] transition-all"
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -59,9 +72,9 @@ const Footer = () => {
         {/* Columna 3: Botones de Acción */}
         {/* Botones grandes y fáciles de presionar en móviles */}
         <div className="md:col-span-4 flex flex-col gap-4">
-          <ActionBtn text="DENUNCIAR SINIESTRO" color="bg-[#67B8C3]" /> {/* Rojo para emergencias */}
-          <ActionBtn text="COTIZAR" color="bg-[#67B8C3]" />
-          <ActionBtn text="CONTACTÁNOS" color="bg-[#67B8C3]" />
+          <ActionBtn text="DENUNCIAR SINIESTRO" to="/siniestros/denuncia" color="bg-[#67B8C3]" />
+          <ActionBtn text="COTIZAR" to="/cotizar" color="bg-[#67B8C3]" />
+          <ActionBtn text="CONTACTÁNOS" to="/contacto" color="bg-[#67B8C3]" />
         </div>
       </div>
 
@@ -73,11 +86,11 @@ const Footer = () => {
   );
 };
 
-const ActionBtn = ({ text, color = "bg-[#0095ff]" }) => (
-  <button className={`w-full ${color} text-white py-4 px-6 md:px-8 rounded-2xl flex justify-between items-center font-bold text-xs md:text-sm tracking-widest group hover:brightness-110 shadow-lg transition-all`}>
+const ActionBtn = ({ text, to, color = "bg-[#0095ff]" }) => (
+  <Link to={to} className={`w-full ${color} text-white py-4 px-6 md:px-8 rounded-2xl flex justify-between items-center font-bold text-xs md:text-sm tracking-widest group hover:brightness-110 shadow-lg transition-all`}>
     {text}
     <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
-  </button>
+  </Link>
 );
 
 export default Footer;

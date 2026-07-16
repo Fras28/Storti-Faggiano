@@ -37,6 +37,7 @@ const DenunciaSiniestro = () => {
     dniTercero: '',
     telTercero: '',
     emailTercero: '',
+    aseguradoraTercero: '',
     patenteTercero: '',
     marcaTercero: '',
     modeloTercero: '',
@@ -147,9 +148,36 @@ const DenunciaSiniestro = () => {
       const photoLinksText = fotosResults.filter(Boolean).join('\n\n');
 
       const templateParams = {
-        // ... todos tus parámetros de emailjs que ya tienes
+        compania: formData.compania,
+        descripcion: formData.descripcion,
+        heridos: formData.heridos,
+        ambulancia: formData.ambulancia,
         cliente_nombre: formData.nombreCliente,
-        // ... (asegúrate de incluir todos los campos necesarios)
+        cliente_dni: formData.dniCliente,
+        cliente_telefono: formData.telefonoCliente,
+        cliente_email: formData.emailCliente,
+        patente: formData.patente,
+        marca: formData.marca,
+        modelo: formData.modelo,
+        anio: formData.anio,
+        titular_es_conductor: formData.titularEsConductor,
+        conductor_nombre: formData.nombreConductor,
+        conductor_dni: formData.dniConductor,
+        conductor_telefono: formData.telConductor,
+        involucra_tercero: formData.involucraTercero,
+        tercero_nombre: formData.nombreTercero,
+        tercero_dni: formData.dniTercero,
+        tercero_telefono: formData.telTercero,
+        tercero_aseguradora: formData.aseguradoraTercero,
+        tercero_patente: formData.patenteTercero,
+        tercero_marca: formData.marcaTercero,
+        tercero_modelo: formData.modeloTercero,
+        tercero_anio: formData.anioTercero,
+        direccion: formData.direccion,
+        entre_calles: formData.entreCalles,
+        ciudad: formData.ciudad,
+        fecha_siniestro: formData.fechaSiniestro,
+        hora_siniestro: formData.horaSiniestro,
         photo_links: photoLinksText
       };
 
@@ -183,24 +211,49 @@ const DenunciaSiniestro = () => {
         <form onSubmit={handleSubmit}>
           {/* PASO 1: COMPAÑÍA */}
           {step === 1 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-500">
+            <div className="animate-in fade-in duration-500">
+              <h2 className="text-3xl font-serif text-gray-800 text-center mb-10">Denuncia Siniestro Automotor</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { n: 'Federación Patronal', l: FedPat },
-                { n: 'Sancor Seguros', l: Sancor },
-                { n: 'Cooperación', l: Cooperacion }
+                { n: 'Federación Patronal', l: FedPat,    tel: null },
+                { n: 'Sancor Seguros',      l: Sancor,    tel: '0800 333 2766' },
+                { n: 'Cooperación',         l: Cooperacion, tel: '0800 444 0266' }
               ].map((co) => (
                 <button key={co.n} type="button" onClick={() => { setFormData({ ...formData, compania: co.n }); nextStep(); }}
                   className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-50 flex flex-col items-center group min-h-[250px] justify-center">
                   <img src={co.l} alt={co.n} className="h-20 object-contain mb-6 filter grayscale group-hover:grayscale-0 transition-all duration-500" />
                   <span className="font-bold text-gray-700 text-lg">{co.n}</span>
+                  {co.tel && (
+                    <p className="text-[11px] text-gray-400 mt-3 text-center leading-snug">
+                      También podés comunicarte al<br />
+                      <span className="font-semibold text-[#72c0c9]">{co.tel}</span>
+                    </p>
+                  )}
                 </button>
               ))}
+              </div>
             </div>
           )}
 
           {/* PASO 2: DESCRIPCIÓN */}
           {step === 2 && (
             <div className="space-y-6 animate-in fade-in duration-500">
+              {(formData.compania === 'Sancor Seguros' || formData.compania === 'Cooperación') && (
+                <div className="bg-white border border-[#72c0c9]/40 rounded-[2.5rem] p-8 shadow-sm text-center space-y-4 max-w-2xl mx-auto">
+                  <p className="text-gray-600 leading-relaxed">
+                    Para <span className="font-semibold">{formData.compania === 'Sancor Seguros' ? 'Sancor Seguros' : 'Cooperación Seguros'}</span> la forma más rápida de iniciar la denuncia es comunicándote con su centro de atención.
+                  </p>
+                  <a
+                    href={`tel:${formData.compania === 'Sancor Seguros' ? '08007774643' : '08007777070'}`}
+                    className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1fb457] text-white px-8 py-4 rounded-2xl font-bold tracking-widest uppercase shadow-lg transition-all"
+                  >
+                    <Phone size={18} />
+                    Llamar ahora {formData.compania === 'Sancor Seguros' ? '0800 777 4643' : '0800 777 7070'}
+                  </a>
+                  <p className="text-[11px] uppercase tracking-widest text-[#72c0c9] font-semibold">Recomendado</p>
+                  <p className="text-sm text-gray-400">¿No podés comunicarte? También podés continuar con el formulario.</p>
+                </div>
+              )}
               <h2 className="text-3xl font-serif text-gray-800 text-center mb-8">¿Qué sucedió?</h2>
               <textarea name="descripcion" value={formData.descripcion} onChange={handleInputChange}
                 className="w-full h-64 p-8 rounded-[2.5rem] border-none shadow-sm focus:ring-2 focus:ring-sf-teal outline-none text-gray-600 text-lg resize-none"
@@ -354,7 +407,7 @@ const DenunciaSiniestro = () => {
           {/* PASO 8: PREGUNTA TERCERO */}
           {step === 8 && (
             <div className="space-y-8 animate-in fade-in duration-500">
-              <h2 className="text-3xl font-serif text-gray-800 text-center">¿Hubo otros vehículos involucrados también?</h2>
+              <h2 className="text-3xl font-serif text-gray-800 text-center">¿Hubo otros vehículos involucrados?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                 <button type="button" onClick={() => { setFormData(prev => ({ ...prev, involucraTercero: 'Si' })); setStep(9); }}
                   className="bg-white p-12 rounded-[2.5rem] border border-gray-50 shadow-sm flex flex-col items-center gap-4 hover:border-sf-teal transition-all group">
@@ -373,20 +426,38 @@ const DenunciaSiniestro = () => {
           {/* PASO 9: DATOS TERCERO */}
           {step === 9 && (
             <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-500">
-              <h2 className="text-3xl font-serif text-gray-800 text-center">Introduzca los datos del otro vehículo.</h2>
+              <h2 className="text-3xl font-serif text-gray-800 text-center">Introduzca los datos del vehículo del tercero.</h2>
               <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 space-y-6">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Nombre del conductor</label>
-                  <input name="nombreTercero" placeholder="Nombre completo" onChange={handleInputChange} value={formData.nombreTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none" />
+                  <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Nombre y Apellido</label>
+                  <input name="nombreTercero" placeholder="Nombre completo" onChange={handleInputChange} value={formData.nombreTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Patente Tercero</label>
-                    <input name="patenteTercero" placeholder="Patente" onChange={handleInputChange} value={formData.patenteTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none" />
+                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">DNI</label>
+                    <input name="dniTercero" placeholder="00.000.000" onChange={handleInputChange} value={formData.dniTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Marca/Modelo Tercero</label>
-                    <input name="marcaTercero" placeholder="Vehículo" onChange={handleInputChange} value={formData.marcaTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none" />
+                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Teléfono</label>
+                    <input name="telTercero" placeholder="291..." onChange={handleInputChange} value={formData.telTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Aseguradora</label>
+                  <input name="aseguradoraTercero" placeholder="Nombre de la compañía aseguradora" onChange={handleInputChange} value={formData.aseguradoraTercero || ''} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Patente</label>
+                  <input name="patenteTercero" placeholder="AA 123 BB" onChange={handleInputChange} value={formData.patenteTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Marca</label>
+                    <input name="marcaTercero" placeholder="Toyota" onChange={handleInputChange} value={formData.marcaTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Modelo</label>
+                    <input name="modeloTercero" placeholder="Corolla" onChange={handleInputChange} value={formData.modeloTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
                   </div>
                 </div>
                 <div className='flex justify-end pt-4'>

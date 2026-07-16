@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "storti-faggiano",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "E:/Morton Desarrollos/Storti-Faggiano",
+      "port": 5173
+    }
+  ]
+}
