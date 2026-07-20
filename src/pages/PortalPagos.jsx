@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
   ChevronDown, MessageCircle, CreditCard, Repeat2, ArrowLeftRight,
-  Building2, CheckCircle2, Globe, Landmark, Banknote
+  Building2, CheckCircle2, Globe, Landmark, Banknote, PlayCircle
 } from 'lucide-react';
 
 import FedPat  from "../assets/datos-utiles/Federación-Patronal.png";
@@ -12,12 +12,119 @@ import CNP     from "../assets/datos-utiles/CNP-Seguros.png";
 
 const WHATSAPP_URL = "https://wa.me/5492914555555?text=Hola!%20Quiero%20pagar%20con%20tarjeta%20mi%20p%C3%B3liza.";
 
+// Portales de autogestión + instructivo paso a paso y videos de cada compañía.
 const insurerPortals = [
-  { name: "Federación Patronal", logo: FedPat,  web: "https://online.fedpat.com.ar/autogestion/ui#/login" },
-  { name: "Sancor Seguros",      logo: Sancor,  web: "https://www.sancorseguros.com.ar/autogestion" },
-  { name: "Cooperación Seguros", logo: Coopera, web: "https://asegurados.cooperacionseguros.com.ar/" },
-  { name: "Provincia Seguros",   logo: ProvSeg, web: "https://appsc.provinciaseguros.com.ar/webclientes/#/login" },
-  { name: "CNP Seguros",         logo: CNP,     web: "https://clientes.cnp.com.ar/auth/login" },
+  {
+    name: "Federación Patronal",
+    logo: FedPat,
+    web: "https://online.fedpat.com.ar/autogestion/ui#/login",
+    steps: [
+      "Accedé al portal de asegurados.",
+      "Ingresá con el DNI/CUIT del titular y la contraseña del portal. Si no tenés usuario, registrate allí con tus datos.",
+      "Te aparecerán todas tus pólizas vigentes.",
+      "Seleccioná la póliza que querés pagar y se desplegará su información.",
+      'Apretá el botón "Pagar".',
+      "Elegí el importe de la/s cuota/s y el medio de pago.",
+      "Completá los datos de pago y aboná.",
+    ],
+    videos: [{ label: "Video: pago en el portal", id: "7e7b2R3ysEE" }],
+  },
+  {
+    name: "Sancor Seguros",
+    logo: Sancor,
+    web: "https://www.sancorseguros.com.ar/autogestion",
+    steps: [
+      "Accedé al portal de asegurados.",
+      'Apretá el botón "Ingresá a Autogestión".',
+      'Apretá "Ingresar". Si aún no tenés cuenta, apretá "Crear una cuenta".',
+      "Iniciá sesión con tu mail y contraseña.",
+      'Apretá el botón "Pagar mis Seguros".',
+      'Seleccioná la póliza y la cuota que querés abonar y apretá "Pagar ahora".',
+      "Completá los datos de pago y aboná.",
+    ],
+    videos: [
+      { label: "Video: acceso al portal", id: "TGCpjt-4IEo" },
+      { label: "Video: cómo pagar", id: "2xODV6LzKgs" },
+    ],
+  },
+  {
+    name: "Cooperación Seguros",
+    logo: Coopera,
+    web: "https://asegurados.cooperacionseguros.com.ar/",
+    steps: [
+      "Accedé al portal de asegurados.",
+      'Colocá el DNI/CUIT del titular y apretá "Ingresar". Si ya tenés usuario, te pedirá la contraseña; si no, registrate con tu número de DNI.',
+      "Te aparecerán todas tus pólizas vigentes.",
+      'Buscá la póliza que querés pagar y apretá "Ver Pagos".',
+      'Verás los pagos pendientes y los últimos realizados. Apretá el botón "Pagar" en la parte superior.',
+      "Seleccioná el medio de pago.",
+      "Seleccioná las cuotas que querés pagar.",
+      "Completá los datos de pago y aboná.",
+    ],
+    videos: [{ label: "Video: pago en el portal", id: "a-_EHEv1PWA" }],
+  },
+  {
+    name: "Provincia Seguros",
+    logo: ProvSeg,
+    web: "https://appsc.provinciaseguros.com.ar/webclientes/#/login",
+  },
+  {
+    name: "CNP Seguros",
+    logo: CNP,
+    web: "https://clientes.cnp.com.ar/auth/login",
+  },
+];
+
+// Instructivos paso a paso de los portales de pago online.
+const onlineGuides = [
+  {
+    name: "Mercado Pago",
+    steps: [
+      "Ingresá a la app de Mercado Pago desde tu celular.",
+      'Seleccioná "Pagos".',
+      'Seleccioná "Pagar una cuenta".',
+      'Presioná el botón "Buscar empresa".',
+      "Escribí el nombre de la compañía de tu póliza (Federación Patronal, Sancor Seguros o Cooperación Seguros).",
+      "Te aparecerán todas tus pólizas vigentes.",
+      "Seleccioná la póliza que querés pagar y se desplegará su información.",
+      'Seleccioná "Pagar".',
+      "Elegí el importe de la/s cuota/s a abonar y el medio de pago.",
+      "Completá los datos de pago y aboná.",
+    ],
+    videos: [{ label: "Video: cómo pagar por Mercado Pago", id: "nCIULZtf1ic" }],
+  },
+  {
+    name: "Rapipago Online",
+    steps: [
+      "Ingresá a la página de Rapipago.",
+      'Seleccioná el botón de pago online con tarjeta de débito que dice "pagá acá".',
+      'En el buscador "Ingrese la provincia", escribí y seleccioná la provincia donde estás.',
+      'Apretá el botón "Pago de Facturas".',
+      "En el buscador de empresas, seleccioná la compañía de seguros de la póliza a abonar (Federación Patronal, Sancor, Cooperación, etc.).",
+      'Seleccioná "Cobranza sin factura".',
+      'Ingresá el DNI o CUIT del titular y seleccioná "Continuar". Si tenés Federación Patronal, te pedirá el número de cliente (lo encontrás en la primera hoja de tu póliza o en la cuponera de pago).',
+      "Te aparecerán las cuotas impagas de tus pólizas vigentes, empezando por la más próxima a vencer.",
+      'Seleccioná la cuota a abonar y apretá "Continuar".',
+      'Revisá la información de la cuota. Si es correcta, seleccioná "Confirmar".',
+      'Ingresá los datos de la tarjeta y seleccioná "Pagar".',
+    ],
+  },
+  {
+    name: "RIPSA Online",
+    steps: [
+      "Ingresá a la página de Ripsa.",
+      'Ingresá con tu cuenta de Ripsa o de Gmail. Si no tenés cuenta, creá una apretando "Regístrese para crear una cuenta" (te pedirá un mail y una contraseña).',
+      "Finalizá la registración activando la cuenta desde el correo de confirmación que te enviarán.",
+      'Ya dentro del sistema, en "Nuevo Pago", apretá el botón "Sin Factura".',
+      "Buscá la compañía de la póliza que querés abonar (Federación Patronal, Cooperación Seguros, Sancor Seguros, etc.).",
+      "Para Federación Patronal o Sancor, ingresá el DNI/CUIT del titular. Para Cooperación Seguros, te pedirá el número de referencia (lo encontrás en la 1ra página de tu póliza).",
+      "Te aparecerán las cuotas disponibles de pago.",
+      "Seleccioná la/s cuota/s que quieras abonar.",
+      'Apretá el botón "Pagar".',
+      'Completá los datos de la tarjeta y personales, y finalizá apretando "Pagar".',
+      "¡Listo! Ya abonaste tu póliza. No necesitás enviar ningún comprobante.",
+    ],
+  },
 ];
 
 const paymentMethods = [
@@ -39,15 +146,15 @@ const paymentMethods = [
     icon: <Globe size={24} />,
     title: "Pagos Online",
     badge: null,
-    desc: "Aboná tus pólizas desde portales de pago online: Mercado Pago, Ripsa, Rapipago Online.",
-    items: ["Mercado Pago", "Rapipago Online", "RIPSA Online"],
+    desc: "Aboná tus pólizas desde portales de pago online. Elegí uno para ver el paso a paso.",
+    guides: onlineGuides,
   },
   {
     id: "portal-asegurados",
     icon: <Building2 size={24} />,
     title: "Portal Asegurados",
     badge: null,
-    desc: "Pagá desde el portal de asegurados de tu compañía de seguros. Te compartimos los accesos de cada una.",
+    desc: "Pagá desde el portal de autogestión de tu compañía de seguros. Elegí tu compañía para ver el instructivo y acceder al portal.",
     portals: true,
   },
   {
@@ -91,6 +198,81 @@ const paymentMethods = [
   },
 ];
 
+// Lista de pasos numerados reutilizable.
+const Steps = ({ steps }) => (
+  <ol className="space-y-2">
+    {steps.map((s, i) => (
+      <li key={i} className="flex items-start gap-2 text-gray-600 text-sm leading-relaxed">
+        <span className="bg-[#72c0c9] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+        {s}
+      </li>
+    ))}
+  </ol>
+);
+
+// Video de YouTube embebido y responsivo (16:9). Solo se carga cuando el instructivo está abierto.
+const VideoEmbed = ({ label, id }) => (
+  <div className="space-y-1.5">
+    <p className="flex items-center gap-1.5 text-gray-500 text-xs font-semibold">
+      <PlayCircle size={14} className="text-[#72c0c9]" />
+      {label}
+    </p>
+    <div className="relative w-full rounded-xl overflow-hidden bg-black" style={{ paddingBottom: '56.25%' }}>
+      <iframe
+        className="absolute inset-0 w-full h-full"
+        src={`https://www.youtube.com/embed/${id}`}
+        title={label}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+  </div>
+);
+
+// Sub-acordeón para un instructivo (portal online o compañía). Estado local independiente.
+const InstructivoAccordion = ({ logo, name, portalUrl, steps, videos }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-gray-100 rounded-2xl overflow-hidden bg-gray-50">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between gap-3 p-4 text-left hover:bg-white transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          {logo && (
+            <div className="w-14 h-8 flex items-center flex-shrink-0">
+              <img src={logo} alt={name} className="max-h-8 max-w-full object-contain" />
+            </div>
+          )}
+          <span className="text-gray-700 text-sm font-medium">{name}</span>
+        </div>
+        <ChevronDown size={16} className={`text-gray-400 flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      <div className={`grid transition-all duration-300 ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="overflow-hidden">
+          <div className="px-4 pb-4 space-y-4">
+            {portalUrl && (
+              <a
+                href={portalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#72c0c9] hover:bg-[#5aa8b1] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm"
+              >
+                Ir al portal
+                <span>→</span>
+              </a>
+            )}
+            {steps && <Steps steps={steps} />}
+            {open && videos && videos.map((v, i) => <VideoEmbed key={i} label={v.label} id={v.id} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const MethodAccordion = ({ method, open, onToggle, innerRef }) => (
   <div ref={innerRef} className="border border-gray-100 rounded-[2rem] overflow-hidden bg-white shadow-sm hover:shadow-md transition-all scroll-mt-28">
     <button
@@ -111,71 +293,65 @@ const MethodAccordion = ({ method, open, onToggle, innerRef }) => (
       <ChevronDown size={18} className={`text-gray-400 flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
     </button>
 
-    <div className={`transition-all duration-300 overflow-hidden ${open ? 'max-h-[1000px]' : 'max-h-0'}`}>
-      <div className="px-6 pb-6 space-y-4">
-        <p className="text-gray-600 text-sm leading-relaxed">{method.desc}</p>
+    <div className={`grid transition-all duration-300 ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+      <div className="overflow-hidden">
+        <div className="px-6 pb-6 space-y-4">
+          <p className="text-gray-600 text-sm leading-relaxed">{method.desc}</p>
 
-        {method.detail && (
-          <div className="bg-gray-50 rounded-2xl p-4">
-            <p className="text-gray-600 text-sm leading-relaxed">{method.detail}</p>
-          </div>
-        )}
+          {method.detail && (
+            <div className="bg-gray-50 rounded-2xl p-4">
+              <p className="text-gray-600 text-sm leading-relaxed">{method.detail}</p>
+            </div>
+          )}
 
-        {method.steps && (
-          <ul className="space-y-2">
-            {method.steps.map((s, j) => (
-              <li key={j} className="flex items-start gap-2 text-gray-500 text-sm">
-                <span className="bg-[#72c0c9] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">{j + 1}</span>
-                {s}
-              </li>
-            ))}
-          </ul>
-        )}
+          {method.steps && <Steps steps={method.steps} />}
 
-        {method.items && (
-          <ul className="space-y-1">
-            {method.items.map((p, i) => (
-              <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
-                <CheckCircle2 size={13} className="text-[#72c0c9] flex-shrink-0" />
-                {p}
-              </li>
-            ))}
-          </ul>
-        )}
+          {method.items && (
+            <ul className="space-y-1">
+              {method.items.map((p, i) => (
+                <li key={i} className="flex items-center gap-2 text-gray-600 text-sm">
+                  <CheckCircle2 size={13} className="text-[#72c0c9] flex-shrink-0" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          )}
 
-        {method.portals && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {insurerPortals.map((c, i) => (
-              <a
-                key={i}
-                href={c.web}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 bg-gray-50 hover:bg-white border border-gray-100 rounded-2xl p-4 transition-all hover:shadow-sm group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-14 h-8 flex items-center flex-shrink-0">
-                    <img src={c.logo} alt={c.name} className="max-h-8 max-w-full object-contain" />
-                  </div>
-                  <span className="text-gray-700 text-sm font-medium">{c.name}</span>
-                </div>
-                <span className="text-[#72c0c9] text-sm group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-            ))}
-          </div>
-        )}
+          {method.guides && (
+            <div className="flex flex-col gap-2">
+              {method.guides.map((g, i) => (
+                <InstructivoAccordion key={i} name={g.name} steps={g.steps} videos={g.videos} />
+              ))}
+            </div>
+          )}
 
-        {method.cta && (
-          <a
-            href={method.cta.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-5 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all shadow"
-          >
-            {method.cta.icon}
-            {method.cta.label}
-          </a>
-        )}
+          {method.portals && (
+            <div className="flex flex-col gap-2">
+              {insurerPortals.map((c, i) => (
+                <InstructivoAccordion
+                  key={i}
+                  logo={c.logo}
+                  name={c.name}
+                  portalUrl={c.web}
+                  steps={c.steps}
+                  videos={c.videos}
+                />
+              ))}
+            </div>
+          )}
+
+          {method.cta && (
+            <a
+              href={method.cta.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-5 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all shadow"
+            >
+              {method.cta.icon}
+              {method.cta.label}
+            </a>
+          )}
+        </div>
       </div>
     </div>
   </div>
