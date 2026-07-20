@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Phone, Truck, ShieldAlert, MessageCircle } from 'lucide-react';
+import { MessageSquare, Phone, Truck, ShieldAlert, MessageCircle, Ambulance, Flame } from 'lucide-react';
 
 const emergencyData = [
   {
@@ -51,12 +51,15 @@ const emergencyData = [
         wa: { value: "+54 9 3493 510404", link: "https://wa.me/5493493510404" }
       },
       { label: "Federación Patronal ART", value: "0800 222 3535", link: "tel:08002223535" },
-      { label: "Prevención ART", value: "0800 5555 278", link: "tel:08005555278" },
-      { label: "Emergencias Médicas", value: "911", link: "tel:911" },
-      { label: "Bomberos", value: "100", link: "tel:100" }
+      { label: "Prevención ART", value: "0800 5555 278", link: "tel:08005555278" }
     ],
     icon: <ShieldAlert />, color: "bg-red-50 text-red-600"
   }
+];
+
+const generalEmergencies = [
+  { label: "Emergencias Médicas", value: "911", link: "tel:911", icon: <Ambulance />, color: "bg-red-50 text-red-600" },
+  { label: "Bomberos", value: "100", link: "tel:100", icon: <Flame />, color: "bg-orange-50 text-orange-600" }
 ];
 
 const EmergencyNumbers = () => {
@@ -97,6 +100,25 @@ const EmergencyNumbers = () => {
                 ))}
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Emergencias generales: fila destacada debajo de las tarjetas */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {generalEmergencies.map((item, i) => (
+            <a
+              key={i}
+              href={item.link}
+              className="flex items-center gap-5 bg-white/5 border border-white/10 px-8 py-6 rounded-[40px] hover:bg-white/10 transition-all group shadow-xl"
+            >
+              <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                {React.cloneElement(item.icon, { size: 28 })}
+              </div>
+              <div>
+                <p className="text-[11px] text-gray-400 mb-1 uppercase tracking-widest">{item.label}</p>
+                <span className="text-2xl font-bold group-hover:text-[#72c0c9] transition-colors">{item.value}</span>
+              </div>
+            </a>
           ))}
         </div>
       </div>
