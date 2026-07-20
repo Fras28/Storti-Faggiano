@@ -8,9 +8,7 @@ import FedPat  from "../assets/datos-utiles/Federación-Patronal.png";
 import Sancor  from "../assets/datos-utiles/Sancor-Seguros.png";
 import Coopera from "../assets/datos-utiles/Cooperación-Seguros.png";
 import ProvSeg from "../assets/datos-utiles/Provincia-Seguros.png";
-import SanCris from "../assets/datos-utiles/San-Cristobal.png";
 import CNP     from "../assets/datos-utiles/CNP-Seguros.png";
-import ProvART from "../assets/datos-utiles/Provincia-ART.png";
 
 const WHATSAPP_URL = "https://wa.me/5492914555555?text=Hola!%20Quiero%20pagar%20con%20tarjeta%20mi%20p%C3%B3liza.";
 
@@ -19,9 +17,7 @@ const insurerPortals = [
   { name: "Sancor Seguros",      logo: Sancor,  web: "https://www.sancorseguros.com.ar" },
   { name: "Cooperación Seguros", logo: Coopera, web: "https://www.cooperacionseguros.com.ar" },
   { name: "Provincia Seguros",   logo: ProvSeg, web: "https://www.provinciaseguros.com.ar" },
-  { name: "San Cristóbal Seguros", logo: SanCris, web: "https://www.sancristobal.com.ar" },
   { name: "CNP Seguros",         logo: CNP,     web: "https://www.cnpseguros.com.ar" },
-  { name: "Provincia ART",       logo: ProvART, web: "https://www.provinciaart.com.ar" },
 ];
 
 const paymentMethods = [
