@@ -12,9 +12,9 @@ const AboutUs = () => {
     <main >
       <AboutHero />
       <OurValues />
+      <ChooseUs />
       <OurTeam />
       <StaffCarousel />
-      <ChooseUs />
       <ServicesGrid />
       <QualityPolicy />
       {/* Próxima sección: Conocenos (Grilla de socios) */}
