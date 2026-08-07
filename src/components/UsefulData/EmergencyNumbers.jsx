@@ -16,7 +16,8 @@ const emergencyData = [
       { label: "Sancor Seguros", value: "0800 777 4643", link: "tel:08007774643" },
       { label: "Cooperación Seguros", value: "0800 777 7070", link: "tel:08007777070" },
       { label: "Federación Patronal ART", value: "0800 222 2322", link: "tel:08002222322" },
-      { label: "Prevención ART", value: "0800 444 4278", link: "tel:08004444278" }
+      { label: "Prevención ART", value: "0800 444 4278", link: "tel:08004444278" },
+      { label: "Provincia ART", value: "0800 333 1333", link: "tel:08003331333" }
     ],
     icon: <Phone />, color: "bg-blue-50 text-blue-600"
   },
@@ -51,7 +52,8 @@ const emergencyData = [
         wa: { value: "+54 9 3493 510404", link: "https://wa.me/5493493510404" }
       },
       { label: "Federación Patronal ART", value: "0800 222 3535", link: "tel:08002223535" },
-      { label: "Prevención ART", value: "0800 5555 278", link: "tel:08005555278" }
+      { label: "Prevención ART", value: "0800 5555 278", link: "tel:08005555278" },
+      { label: "Provincia ART", value: "0800 333 1278", link: "tel:08003331278" }
     ],
     icon: <ShieldAlert />, color: "bg-red-50 text-red-600"
   }
