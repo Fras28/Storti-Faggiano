@@ -21,7 +21,7 @@ const AboutHero = () => {
           
           <div className="space-y-6 text-[#1a2e44]">
             <p>
-              Somos una Organización de Seguros con <b className="font-bold">25 años de trayectoria</b>, integrada 
+              Somos una Organización de Seguros con <b className="font-bold">más de 30 años de trayectoria</b>, integrada
               exclusivamente por Productores Asesores de Seguros matriculados y vinculados 
               a las principales compañías aseguradoras del país.
             </p>

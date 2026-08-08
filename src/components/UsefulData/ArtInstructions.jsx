@@ -2,6 +2,7 @@ import React from 'react';
 import { ShieldCheck, ClipboardList, Phone, Building2, UserCheck, CheckCircle2, Download, MapPin, HelpCircle, ExternalLink } from 'lucide-react';
 
 import FedPatLogo from "../../assets/datos-utiles/Federación-Patronal.png";
+import ProvArtLogo from "../../assets/datos-utiles/Provincia-ART.png";
 
 const coberturaItems = [
   "Atención médica, farmacéutica, prótesis y ortopedia.",
@@ -89,6 +90,21 @@ const artCompanies = [
       href: "https://login.gruposancorseguros.com.ar/u/login/identifier?state=hKFo2SBMUEJGOGMtdzE3YW1oRnhkLVI1cnl3MWdwRzd4aDdIeKFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIDZYSEgyZG8wU0lZQ1VOTmdEQ3Q4MzNvMmFGczhhd2E1o2NpZNkgdHlSN3E1Q3VXOEVoWkZKNlRTY2FXVEVLc3gySWp6bVI",
       linkLabel: "Ingresar a Prevenet →",
     },
+  },
+  {
+    name: "Provincia ART",
+    logo: ProvArtLogo,
+    phones: [
+      { label: "Denuncia y/o Emergencia", number: "0800-333-1333" },
+    ],
+    actions: [
+      {
+        label: "¿Qué hacer ante un accidente?",
+        icon: <HelpCircle size={14} />,
+        href: "https://www.provinciart.com.ar/que-hacer-ante-un-accidente",
+      },
+    ],
+    extra: null,
   },
 ];
 

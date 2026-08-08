@@ -6,6 +6,7 @@ import Federacion from "../assets/Partners/FederacionPatronal.png"
 import PrevencionArt from "../assets/Partners/PrevencionART.png"
 import PrevencionSal from "../assets/Partners/PrevencionSalud.png"
 import SancorSeg from "../assets/Partners/SancorSeguros.png"
+import CNP from "../assets/datos-utiles/CNP-Seguros.png"
 
 import 'swiper/css';
 
@@ -15,6 +16,7 @@ const partners = [
     { name: "Prevención Salud", logo: PrevencionSal },
     { name: "Prevención ART", logo: PrevencionArt },
     { name: "Cooperación Seguros", logo: Cooperacion },
+    { name: "CNP Seguros", logo: CNP },
 ];
 
 const Partners = () => {

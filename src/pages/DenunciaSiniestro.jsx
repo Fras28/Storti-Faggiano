@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   HelpCircle, ChevronRight, ChevronLeft, CheckCircle2,
   XCircle, Bandage, Camera, AlertCircle, MapPin,
@@ -9,6 +9,91 @@ import emailjs from '@emailjs/browser';
 import FedPat from "../assets/Partners/FederacionPatronal.png";
 import Sancor from "../assets/Partners/SancorSeguros.png";
 import Cooperacion from "../assets/Partners/CooperacionSeguros.png";
+
+// Escapa texto del usuario para insertarlo de forma segura en el HTML del email.
+const escapeHtml = (s) => String(s ?? '')
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;');
+
+// Bloque HTML con los links de Cloudinary, agrupados por categoría y clickeables.
+// sections: [{ label, urls: string[] }]
+const buildPhotoLinksHtml = (sections) => {
+  const active = sections.filter(s => s.urls.length > 0);
+  if (active.length === 0) return '<p style="color:#6b7280;font-size:13px">No se adjuntaron fotos.</p>';
+  return active.map(s =>
+    `<p style="margin:14px 0 4px;font-weight:bold;color:#1a2e44;font-size:13px">${escapeHtml(s.label)}</p>` +
+    s.urls.map((u, i) =>
+      `<a href="${encodeURI(u)}" style="color:#2a6f7a;font-size:13px;word-break:break-all">Foto ${i + 1}: ${escapeHtml(u)}</a>`
+    ).join('<br>')
+  ).join('');
+};
+
+// Versión en texto plano de los links (respaldo por si el email se ve sin HTML).
+const buildPhotoLinksText = (sections) => {
+  const active = sections.filter(s => s.urls.length > 0);
+  if (active.length === 0) return 'No se adjuntaron fotos.';
+  return active.map(s => s.label + ':\n' + s.urls.join('\n')).join('\n\n');
+};
+
+// Arma el cuerpo completo del email en HTML con TODOS los datos de la denuncia.
+// De esta forma el correo llega completo sin depender de que la plantilla de
+// EmailJS declare cada variable: la plantilla solo necesita renderizar {{{message_html}}}.
+const buildEmailHtml = (f, photoLinksHtml) => {
+  const row = (label, value) => value
+    ? `<tr><td style="padding:4px 14px 4px 0;color:#6b7280;font-size:13px;vertical-align:top;white-space:nowrap">${escapeHtml(label)}</td><td style="padding:4px 0;color:#111827;font-size:13px"><strong>${escapeHtml(value)}</strong></td></tr>`
+    : '';
+  const section = (title, rows) => rows
+    ? `<h3 style="margin:22px 0 6px;color:#1a2e44;font-size:15px;border-bottom:2px solid #72c0c9;padding-bottom:4px">${escapeHtml(title)}</h3><table style="border-collapse:collapse;width:100%">${rows}</table>`
+    : '';
+
+  const conductorRows = f.titularEsConductor === 'Si'
+    ? row('Conductor', 'El titular era el conductor al momento del siniestro')
+    : row('Nombre', f.nombreConductor) + row('DNI', f.dniConductor) + row('Teléfono', f.telConductor);
+
+  const terceroRows = f.involucraTercero === 'Si'
+    ? row('Nombre', f.nombreTercero) + row('DNI', f.dniTercero) + row('Teléfono', f.telTercero) +
+      row('Email', f.emailTercero) + row('Aseguradora', f.aseguradoraTercero) + row('Patente', f.patenteTercero) +
+      row('Marca', f.marcaTercero) + row('Modelo', f.modeloTercero) + row('Año', f.anioTercero)
+    : row('Otros vehículos', 'No hubo otros vehículos involucrados');
+
+  return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;color:#111827">
+  <div style="background:#1a2e44;color:#ffffff;padding:20px 24px;border-radius:12px 12px 0 0">
+    <h2 style="margin:0;font-size:18px">Nueva denuncia de siniestro automotor</h2>
+    <p style="margin:6px 0 0;color:#72c0c9;font-size:13px">${escapeHtml(f.compania)}</p>
+  </div>
+  <div style="border:1px solid #e5e7eb;border-top:none;padding:8px 24px 24px;border-radius:0 0 12px 12px">
+    ${section('Datos del siniestro',
+      row('Compañía', f.compania) +
+      row('Descripción', f.descripcion) +
+      row('Personas heridas', f.heridos) +
+      row('Intervino ambulancia', f.ambulancia) +
+      row('Fecha', f.fechaSiniestro) +
+      row('Hora', f.horaSiniestro) +
+      row('Dirección', f.direccion) +
+      row('Entre calles', f.entreCalles) +
+      row('Ciudad', f.ciudad)
+    )}
+    ${section('Titular de la póliza',
+      row('Nombre', f.nombreCliente) +
+      row('DNI', f.dniCliente) +
+      row('Teléfono', f.telefonoCliente) +
+      row('Email', f.emailCliente)
+    )}
+    ${section('Vehículo asegurado',
+      row('Patente', f.patente) +
+      row('Marca', f.marca) +
+      row('Modelo', f.modelo) +
+      row('Año', f.anio)
+    )}
+    ${section('Conductor', conductorRows)}
+    ${section('Tercero involucrado', terceroRows)}
+    <h3 style="margin:22px 0 6px;color:#1a2e44;font-size:15px;border-bottom:2px solid #72c0c9;padding-bottom:4px">Fotos del siniestro (Cloudinary)</h3>
+    ${photoLinksHtml}
+  </div>
+</div>`;
+};
 
 const DenunciaSiniestro = () => {
   const navigate = useNavigate();
@@ -133,19 +218,26 @@ const DenunciaSiniestro = () => {
     e.preventDefault();
     setIsSending(true);
     try {
-      // Subida de imágenes a Cloudinary (4 categorías)
-      const uploadSection = async (files, label) => {
-        if (!files || files.length === 0) return '';
-        const urls = await Promise.all(files.map(f => uploadToCloudinary(f)));
-        return label + ':\n' + urls.join('\n');
+      // Subida de imágenes a Cloudinary (4 categorías) -> URLs seguras
+      const uploadSection = async (files) => {
+        if (!files || files.length === 0) return [];
+        return Promise.all(files.map(f => uploadToCloudinary(f)));
       };
-      const fotosResults = await Promise.all([
-        uploadSection(formData.fotosVehiculo, 'Vehículo asegurado'),
-        uploadSection(formData.fotosLicencia, 'Licencia de conducir'),
-        uploadSection(formData.fotosTarjetaVerde, 'Tarjeta verde'),
-        uploadSection(formData.fotosDni, 'DNI'),
+      const [vehiculoUrls, licenciaUrls, tarjetaVerdeUrls, dniUrls] = await Promise.all([
+        uploadSection(formData.fotosVehiculo),
+        uploadSection(formData.fotosLicencia),
+        uploadSection(formData.fotosTarjetaVerde),
+        uploadSection(formData.fotosDni),
       ]);
-      const photoLinksText = fotosResults.filter(Boolean).join('\n\n');
+      const photoSections = [
+        { label: 'Vehículo asegurado', urls: vehiculoUrls },
+        { label: 'Licencia de conducir', urls: licenciaUrls },
+        { label: 'Tarjeta verde', urls: tarjetaVerdeUrls },
+        { label: 'DNI', urls: dniUrls },
+      ];
+      const photoLinksText = buildPhotoLinksText(photoSections);
+      const photoLinksHtml = buildPhotoLinksHtml(photoSections);
+      const messageHtml = buildEmailHtml(formData, photoLinksHtml);
 
       const templateParams = {
         compania: formData.compania,
@@ -168,6 +260,7 @@ const DenunciaSiniestro = () => {
         tercero_nombre: formData.nombreTercero,
         tercero_dni: formData.dniTercero,
         tercero_telefono: formData.telTercero,
+        tercero_email: formData.emailTercero,
         tercero_aseguradora: formData.aseguradoraTercero,
         tercero_patente: formData.patenteTercero,
         tercero_marca: formData.marcaTercero,
@@ -178,7 +271,13 @@ const DenunciaSiniestro = () => {
         ciudad: formData.ciudad,
         fecha_siniestro: formData.fechaSiniestro,
         hora_siniestro: formData.horaSiniestro,
-        photo_links: photoLinksText
+        photo_links: photoLinksText,
+        photo_links_html: photoLinksHtml,
+        // Cuerpo completo del email ya formateado. La plantilla de EmailJS
+        // solo tiene que renderizar {{{message_html}}} (triple llave = HTML).
+        message_html: messageHtml,
+        // Para poder responderle directamente al cliente desde el correo.
+        reply_to: formData.emailCliente
       };
 
       await emailjs.send(
@@ -441,6 +540,10 @@ const DenunciaSiniestro = () => {
                     <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Teléfono</label>
                     <input name="telTercero" placeholder="291..." onChange={handleInputChange} value={formData.telTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
                   </div>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Email</label>
+                  <input name="emailTercero" placeholder="email@ejemplo.com" onChange={handleInputChange} value={formData.emailTercero} className="w-full p-5 bg-gray-50 border border-transparent rounded-2xl outline-none focus:bg-white focus:border-sf-teal transition-all" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-gray-400 ml-2 uppercase tracking-wider">Aseguradora</label>

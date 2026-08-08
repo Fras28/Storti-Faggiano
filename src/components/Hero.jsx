@@ -26,7 +26,7 @@ const Hero = () => {
       title: "¿Tuviste un accidente?",
       description: "Estamos para ayudarte en cada paso. Conocé cómo realizar tu denuncia de forma rápida y segura.",
       buttonText: "QUIERO SABER MÁS",
-      link: "/contacto",
+      link: "/siniestros",
       image: Siniestro,
       bgColor: "bg-gray-900"
     }
@@ -83,25 +83,27 @@ const Hero = () => {
 
       <section className="max-w-7xl mx-auto px-4 md:px-6 -mt-10 md:-mt-20 relative z-30 pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          <ServiceCard icon={<Car size={24} />} title="Denuncia un Siniestro" desc="Presente su reclamación por accidente en línea de forma rápida." />
-          <ServiceCard icon={<Plus size={24} />} title="Qué hacer en caso de accidente" desc="Guía paso a paso para gestionar su siniestro sin demoras." />
-          <ServiceCard icon={<Phone size={24} />} title="Números de emergencia/Grua" desc="Acceso rápido a todos los números de contacto 24hs." />
-          <ServiceCard icon={<Download size={24} />} title="Pague su poliza en linea" desc="ir al portal de pagos" />
+          <ServiceCard icon={<Car size={24} />} title="Denuncia un Siniestro" desc="Presente su reclamación por accidente en línea de forma rápida." link="/siniestros/denuncia" />
+          <ServiceCard icon={<Plus size={24} />} title="Qué hacer en caso de accidente" desc="Guía paso a paso para gestionar su siniestro sin demoras." link="/datos-utiles" />
+          <ServiceCard icon={<Phone size={24} />} title="Números de emergencia/Grua" desc="Acceso rápido a todos los números de contacto 24hs." link="/datos-utiles" />
+          <ServiceCard icon={<Download size={24} />} title="Pague su poliza en linea" desc="ir al portal de pagos" link="/portal-de-pagos" />
         </div>
       </section>
     </div>
   );
 };
 
-const ServiceCard = ({ icon, title, desc }) => (
-  <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col items-center md:items-start text-center md:text-left">
-    <div className="bg-gray-100 group-hover:bg-sf-teal group-hover:text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-gray-600 transition-colors">
-      {icon}
+const ServiceCard = ({ icon, title, desc, link }) => (
+  <NavLink to={link} className="block h-full">
+    <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col items-center md:items-start text-center md:text-left h-full">
+      <div className="bg-gray-100 group-hover:bg-sf-teal group-hover:text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4 text-gray-600 transition-colors">
+        {icon}
+      </div>
+      {/* Títulos de tarjetas con Lato Bold */}
+      <h4 className="font-lato text-lg font-bold mb-2 text-gray-800">{title}</h4>
+      <p className="font-lato text-sm text-gray-500 leading-relaxed">{desc}</p>
     </div>
-    {/* Títulos de tarjetas con Lato Bold */}
-    <h4 className="font-lato text-lg font-bold mb-2 text-gray-800">{title}</h4>
-    <p className="font-lato text-sm text-gray-500 leading-relaxed">{desc}</p>
-  </div>
+  </NavLink>
 );
 
 export default Hero;
