@@ -40,7 +40,7 @@ const Partners = () => {
                     {partners.map((partner, index) => (
                         <SwiperSlide key={index}>
                             <div className="flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                                <img src={partner.logo} alt={partner.name} className="h-12 object-contain" />
+                                <img loading="lazy" decoding="async" src={partner.logo} alt={partner.name} className="h-12 object-contain" />
                             </div>
                         </SwiperSlide>
                     ))}

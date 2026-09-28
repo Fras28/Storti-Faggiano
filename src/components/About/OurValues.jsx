@@ -1,12 +1,12 @@
 import React from 'react';
-import FamiliaPlaya from "../../assets/nosotros/familia-playa.png";
+import FamiliaPlaya from "../../assets/nosotros/familia-playa.webp";
 
 const OurValues = () => {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         <div className="md:w-1/2">
-          <img 
+          <img loading="lazy" decoding="async" 
             src={FamiliaPlaya} 
             alt="Familia en la playa" 
             className="w-full h-auto rounded-[40px] shadow-sm"

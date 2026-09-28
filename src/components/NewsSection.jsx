@@ -2,8 +2,8 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import New0 from "../assets/Noticias/Card.png"
-import New1 from "../assets/Noticias/Card-1.png"
-import New2 from "../assets/Noticias/Card-2.png"
+import New1 from "../assets/Noticias/Card-1.webp"
+import New2 from "../assets/Noticias/Card-2.webp"
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -54,7 +54,7 @@ const NewsSection = () => {
             <SwiperSlide key={index}>
               <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group h-full flex flex-col">
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-8 flex flex-col flex-grow">
                   <span className="caption text-gray-400 mb-2">{item.date}</span>

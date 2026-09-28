@@ -1,5 +1,5 @@
 import React from 'react';
-import LaptopImage from "../assets/Claims/Claims.png"; // Asegúrate de tener la imagen en tus assets
+import LaptopImage from "../assets/Claims/Claims.webp"; // Asegúrate de tener la imagen en tus assets
 
 const ClaimsSection = () => {
   return (
@@ -9,7 +9,7 @@ const ClaimsSection = () => {
         {/* Lado Izquierdo: Imagen */}
         <div className="w-full md:w-1/2">
           <div className="relative">
-            <img
+            <img loading="lazy" decoding="async"
               src={LaptopImage}
               alt="Realizá tu denuncia online"
               className="rounded-[2rem] shadow-2xl w-full object-cover aspect-video md:aspect-auto"

@@ -7,13 +7,13 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 // Importación de fotos (Asegúrate de que las rutas coincidan con tus archivos)
-import JorgeImg from "../../assets/nosotros/staff/Jorge.png";
-import FrancoImg from "../../assets/nosotros/staff/Franco.png";
-import MaximoImg from "../../assets/nosotros/staff/Maximo.png";
+import JorgeImg from "../../assets/nosotros/staff/Jorge.webp";
+import FrancoImg from "../../assets/nosotros/staff/Franco.webp";
+import MaximoImg from "../../assets/nosotros/staff/Maximo.webp";
 import SantiagoImg from "../../assets/nosotros/staff/Santiago.png";
-import CieloImg from "../../assets/nosotros/staff/Cielo.png";
-import LauraImg from "../../assets/nosotros/staff/Laura.png";
-import JaunImg from "../../assets/nosotros/staff/Juan.png";
+import CieloImg from "../../assets/nosotros/staff/Cielo.webp";
+import LauraImg from "../../assets/nosotros/staff/Laura.webp";
+import JaunImg from "../../assets/nosotros/staff/Juan.webp";
 
 const staffMembers = [
   {
@@ -81,7 +81,7 @@ const StaffCarousel = () => {
             <SwiperSlide key={index}>
               <div className="flex flex-col items-center text-center">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-5 shadow-md border-4 border-white">
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={member.image} 
                     alt={member.name} 
                     className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"

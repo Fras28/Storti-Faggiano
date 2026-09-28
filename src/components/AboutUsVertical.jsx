@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Users, Award, CheckSquare, CheckCircle2 } from 'lucide-react';
-import AboutImg from "../assets/Hero/asesoramiento2.jpeg";
+import AboutImg from "../assets/Hero/asesoramiento2.webp";
 
 const stats = [
     { icon: <ShieldCheck size={32} />, number: "25+", label: "Años de experiencia" },
@@ -43,7 +43,7 @@ const AboutUsVertical = () => {
                 {/* BLOQUE 2: CONTENIDO EDITORIAL (Imagen a la izquierda, Texto a la derecha) */}
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     <div className="w-full lg:w-1/2">
-                        <img
+                        <img loading="lazy" decoding="async"
                             src={AboutImg}
                             alt="Sobre nosotros"
                             className="rounded-3xl shadow-lg w-full h-[500px] object-cover"

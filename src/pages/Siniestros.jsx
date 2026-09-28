@@ -4,8 +4,8 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight, ArrowRight, ShieldAlert, FileText, CheckCircle, Car, MessageCircle, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import Siniestro1 from "../assets/Siniestro/siniestro.png";
-import Siniestro2 from "../assets/Siniestro/siniestro2.png";
+import Siniestro1 from "../assets/Siniestro/siniestro.webp";
+import Siniestro2 from "../assets/Siniestro/siniestro2.webp";
 
 import 'swiper/css';
 import 'swiper/css/navigation';

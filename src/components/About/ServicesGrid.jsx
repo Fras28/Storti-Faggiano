@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import bgServices from "../../assets/nosotros/bg-services.jpg";
+import bgServices from "../../assets/nosotros/bg-services.webp";
 
 const services = [
   { 

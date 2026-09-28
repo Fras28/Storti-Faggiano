@@ -126,7 +126,7 @@ const ArtInstructions = () => {
             {/* Header compañía */}
             <div className="flex items-center gap-4 mb-6">
               {company.logo ? (
-                <img src={company.logo} alt={company.name} className="h-10 object-contain" />
+                <img loading="lazy" decoding="async" src={company.logo} alt={company.name} className="h-10 object-contain" />
               ) : (
                 <div className="h-10 flex items-center">
                   <span className="text-[#1a2e44] font-bold text-lg">{company.name}</span>

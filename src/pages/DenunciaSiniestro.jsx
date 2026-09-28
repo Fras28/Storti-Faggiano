@@ -323,7 +323,7 @@ const DenunciaSiniestro = () => {
               ].map((co) => (
                 <button key={co.n} type="button" onClick={() => { setFormData({ ...formData, compania: co.n }); nextStep(); }}
                   className="bg-white p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-50 flex flex-col items-center group min-h-[250px] justify-center">
-                  <img src={co.l} alt={co.n} className="h-20 object-contain mb-6 filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  <img loading="lazy" decoding="async" src={co.l} alt={co.n} className="h-20 object-contain mb-6 filter grayscale group-hover:grayscale-0 transition-all duration-500" />
                   <span className="font-bold text-gray-700 text-lg">{co.n}</span>
                   {co.tel && (
                     <p className="text-[11px] text-gray-400 mt-3 text-center leading-snug">

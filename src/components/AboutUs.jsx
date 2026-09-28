@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ShieldCheck, Users, Award, CheckSquare } from 'lucide-react';
-import AboutImg from "../assets/Hero/asesoramiento2.jpeg"; 
+import AboutImg from "../assets/Hero/asesoramiento2.webp"; 
 
 // Sub-componente para la animación numérica
 const Counter = ({ target, duration = 2 }) => {
@@ -75,7 +75,7 @@ const AboutUs = () => {
             className="w-full lg:w-[45%] relative"
           >
             <div className="relative z-10">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={AboutImg} 
                 alt="Asesoramiento profesional" 
                 className="rounded-2xl shadow-xl w-full object-cover aspect-[4/5] lg:aspect-square"

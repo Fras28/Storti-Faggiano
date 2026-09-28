@@ -6,7 +6,7 @@ import DebitoIcon from "../assets/DebDirecto.svg";
 const PaymentCard = ({ title, iconSrc, altText }) => (
   <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100  transition-all duration-300 flex flex-col items-center group">
     <div className="w-16 h-16 mb-6 flex items-center justify-center ">
-      <img src={iconSrc} alt={altText} className="w-12 h-12 object-contain" />
+      <img loading="lazy" decoding="async" src={iconSrc} alt={altText} className="w-12 h-12 object-contain" />
     </div>
     <h3 className="text-gray-800">{title}</h3>
     <p className="caption text-gray-400 mt-2  tracking-widest font-semibold">Pago Seguro</p>

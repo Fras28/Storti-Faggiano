@@ -1,5 +1,5 @@
 import React from 'react';
-import bgHero from "../../assets/datos-utiles/hero-datos-bg.png";
+import bgHero from "../../assets/datos-utiles/hero-datos-bg.webp";
 
 import SiniestroIcon from "../../assets/datos-utiles/svgs/siniestro.svg";
 import ArtIcon       from "../../assets/datos-utiles/svgs/ART.svg";

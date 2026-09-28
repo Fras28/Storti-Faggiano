@@ -4,9 +4,9 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight, Car, Plus, Phone, Download } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
-import Asesoramiento from "../assets/Hero/asesoramiento.png"
-import Asesoramiento2 from "../assets/Hero/asesoramiento2.jpeg"
-import Siniestro from "../assets/Hero/siniestro.png"
+import Asesoramiento from "../assets/Hero/asesoramiento.webp"
+import Asesoramiento2 from "../assets/Hero/asesoramiento2.webp"
+import Siniestro from "../assets/Hero/siniestro.webp"
 
 import 'swiper/css';
 import 'swiper/css/pagination';

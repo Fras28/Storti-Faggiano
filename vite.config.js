@@ -11,35 +11,45 @@ export default defineConfig({
       registerType: 'autoUpdate', // O 'prompt', dependiendo de cómo quieras que se actualice el SW
       injectRegister: 'auto', // Para que el plugin inyecte el código de registro
       workbox: {
-        // Esto precachea los archivos estáticos de tu aplicación.
-        // Asegúrate de incluir todos los tipos de archivos relevantes.
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        // Aumenta el límite de tamaño para archivos precacheados a 5 MB (puedes ajustar este valor)
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024 
+        // Precachea solo el "esqueleto" de la app (código y estilos), no las imágenes:
+        // antes cada visita nueva descargaba ~16 MB de imágenes de todas las páginas.
+        globPatterns: ['**/*.{js,css,html,ico,svg}'],
+        // Las imágenes se guardan en caché recién cuando el visitante las ve
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'imagenes',
+              expiration: { maxEntries: 60, maxAgeSeconds: 30 * 24 * 60 * 60 }
+            }
+          }
+        ]
       },
       manifest: {
         // Configuración del manifiesto de la aplicación
-        name: 'Tecno Gen Solar', // Nombre completo de tu aplicación
-        short_name: 'TecnoGen',     // Nombre corto para la pantalla de inicio
-        description: 'Soluciones Energeticas para vos y tu ecosistema', // Descripción de la PWA
-        background_color: '#0fe778', // Color de fondo al cargar
+        name: 'Storti-Faggiano | Organización de Seguros', // Nombre completo de tu aplicación
+        short_name: 'Storti-Faggiano',     // Nombre corto para la pantalla de inicio
+        description: 'Más de 25 años de trayectoria brindando respaldo.', // Descripción de la PWA
+        background_color: '#ffffff', // Color de fondo al cargar
+        theme_color: '#70b9c1',
         display: 'standalone',   // Cómo se muestra (fullscreen, standalone, minimal-ui, browser)
         scope: '/',              // Alcance de la PWA
         start_url: '/',          // URL de inicio
         icons: [
           // Aquí defines los íconos de tu PWA. Deben estar en la carpeta 'public'.
           {
-            src: './public/tecnogen.png',
+            src: '/sf-icon-192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: './public/tecnogen.png',
+            src: '/sf-icon-512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: './public/tecnogen.png',
+            src: '/sf-icon-512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable' // Para íconos adaptativos en Android

@@ -10,7 +10,7 @@ import Cooperacion from "../../assets/datos-utiles/Cooperación-Seguros.png";
 import ProvART from "../../assets/datos-utiles/Provincia-ART.png";
 import CNP from "../../assets/datos-utiles/CNP-Seguros.png";
 import ProvSeg from "../../assets/datos-utiles/Provincia-Seguros.png";
-import DocBg from "../../assets/datos-utiles/Documentacion-bg.jpg";
+import DocBg from "../../assets/datos-utiles/Documentacion-bg.webp";
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -61,7 +61,7 @@ const DownloadDocs = () => {
                 
                 {/* Contenedor del Logo */}
                 <div className="flex-1 flex items-center justify-center w-full p-6 bg-white rounded-[30px] mb-6 group-hover:scale-105 transition-transform duration-500 shadow-xl">
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={company.logo} 
                     alt={company.name}
                     className="max-h-20 w-auto object-contain"

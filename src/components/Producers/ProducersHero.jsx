@@ -1,5 +1,5 @@
 import React from 'react';
-import bgProducers from "../../assets/Producers/bg-hero.png"; 
+import bgProducers from "../../assets/Producers/bg-hero.webp"; 
 
 const ProducersHero = () => {
   return (

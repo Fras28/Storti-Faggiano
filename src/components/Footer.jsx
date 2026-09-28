@@ -20,7 +20,7 @@ const Footer = () => {
         {/* Columna 1: Info legal y Matrículas */}
         {/* En móvil: Centrado | En desktop: Alineado a la izquierda */}
         <div className="md:col-span-5 space-y-6 md:space-y-8 text-center md:text-left">
-          <img 
+          <img loading="lazy" decoding="async" 
             src={Logo} 
             alt="SF Seguros" 
             className="h-12 md:h-16 brightness-0 invert mx-auto md:ml-0" 
