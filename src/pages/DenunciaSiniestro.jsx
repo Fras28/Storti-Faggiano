@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
+import { trackEvent } from '../components/Analytics';
 import FedPat from "../assets/Partners/FederacionPatronal.png";
 import Sancor from "../assets/Partners/SancorSeguros.png";
 import Cooperacion from "../assets/Partners/CooperacionSeguros.png";
@@ -286,6 +287,8 @@ const DenunciaSiniestro = () => {
         templateParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
+
+      trackEvent("denuncia_siniestro_enviada");
 
       // Paso al paso final de confirmación
       setStep(13);

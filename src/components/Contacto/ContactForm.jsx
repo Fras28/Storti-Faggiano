@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { Send, Phone, Mail, MapPin, CheckCircle2 } from 'lucide-react';
+import { trackEvent } from '../Analytics';
 
 const ContactForm = () => {
   const form = useRef();
@@ -21,6 +22,7 @@ const ContactForm = () => {
     .then((result) => {
         setIsSending(false);
         setIsSent(true);
+        trackEvent("contacto_enviado");
         form.current.reset();
         setTimeout(() => setIsSent(false), 5000);
     }, (error) => {

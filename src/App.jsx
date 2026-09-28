@@ -5,6 +5,7 @@ import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop'; // 1. Importar
+import Analytics from './components/Analytics';
 import Productores from './pages/Productores';
 import ProductoresIngreso from './pages/ProductoresIngreso';
 import DatosUtiles from './pages/DatosUtiles';
@@ -19,6 +20,7 @@ function App() {
   return (
     <>
       <ScrollToTop /> {/* 2. Colocar aquí para que afecte a todas las rutas */}
+      <Analytics />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

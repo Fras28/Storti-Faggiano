@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Car, Users, Mountain, Send, Loader2, CheckCircle, Camera, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
+import { trackEvent } from '../components/Analytics';
 
 const SiniestrosGuia = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -93,6 +94,7 @@ const SiniestrosGuia = () => {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
+      trackEvent("reporte_siniestro_enviado");
       setStatus('success');
     } catch (error) {
       console.error(error);
